@@ -19,6 +19,7 @@ exports.up = function (knex) {
         .inTable("Sehir")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
+
       tablo.string("merkez_adres");
     })
     .createTable("Personel", (tablo) => {
@@ -32,6 +33,7 @@ exports.up = function (knex) {
         .inTable("Merkez")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
+
       tablo.string("telefon").notNullable();
     })
     .createTable("MerkezPersonel", (tablo) => {
@@ -42,16 +44,33 @@ exports.up = function (knex) {
         .inTable("Merkez")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
-      /*   tablo.increments("personel_id") */
+      tablo
+        .increments("Personel_id")
+        .integer("Personel_id")
+        .inTable("Personel");
+      tablo
+        .timestamp("created_at")
+        .defaultTo(knex.fn.now())
+        .integer("Danisan_sayisi");
+    })
+    .createTable("MerkezIsBirligi", (tablo) => {
+      tablo.increments("Merkez_is_birligi_id");
+      tablo
+        .integer("merkez_id")
+        .references("merkez_id")
+        .inTable("Merkez")
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE");
+      tablo.string("is_birligi_kurum_adi");
     });
 };
-
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
   return knex.schema
+    .dropTableIfExists("MerkezIsBirligi")
     .dropTableIfExists("MerkezPersonel")
     .dropTableIfExists("MerkezTelefon")
     .dropTableIfExists("Personel")
