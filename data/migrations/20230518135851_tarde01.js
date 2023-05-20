@@ -62,6 +62,12 @@ exports.up = function (knex) {
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
       tablo.string("is_birligi_kurum_adi");
+    })
+    .createTable("AracSayisi", (tablo) => {
+      tablo.increments("arac_sayisi_id");
+      tablo.integer("binek_arac");
+      tablo.integer("gezici karavan");
+      tablo.integer("diger");
     });
 };
 /**
