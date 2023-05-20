@@ -6,12 +6,12 @@ const { default: knex } = require("knex");
  */
 exports.seed = async function (knex) {
   // Deletes ALL existing entries
-  await knex("MerkezIsBirligi");
-  await knex("MerkezPersonel");
-  await knex("MerkezTelefon");
-  await knex("Personel");
-  await knex("Merkez");
-  await knex("Sehir");
+  await knex("MerkezIsBirligi").truncate();
+  await knex("DanisanSayisi").truncate();
+  await knex("MerkezTelefon").truncate();
+  await knex("Personel").truncate();
+  await knex("Merkez").truncate();
+  await knex("Sehir").truncate();
 
   await knex("Sehir").insert([
     { sehir_id: 1, sehir_adi: "Hatay/iskenderun" },
@@ -24,10 +24,10 @@ exports.seed = async function (knex) {
     { sehir_id: 8, sehir_adi: "Diyarbakir" },
   ]);
   await knex("Merkez").insert([
-    { merkez_id: 1, merkez_adi: "İBB Afet Koordinasyon Merkezi" },
-    { merkez_id: 2, merkez_adi: "Harbiye/Hidropark Çadırkent" },
-    { merkez_id: 3, merkez_adi: "Samandag Konteyner Kent" },
-    { merkez_id: 4, merkez_adi: "Orhanli Konteyner Kent" },
+    { merkez_id: 1, sehir_id: 1, merkez_adi: "IBB Afet Koordinasyon Merkezi" },
+    { merkez_id: 2, sehir_id: 1, merkez_adi: "Harbiye/Hidropark Cadırkent" },
+    { merkez_id: 3, sehir_id: 1, merkez_adi: "Samandag Konteyner Kent" },
+    { merkez_id: 4, sehir_id: 1, merkez_adi: "Orhanli Konteyner Kent" },
   ]);
   await knex("Personel").insert([
     { personel_id: 1, personel_adi: "Sergen Tut" },
@@ -63,20 +63,51 @@ exports.seed = async function (knex) {
     { merkez_telefon_id: 1, telefon: "0533 289 00 61" },
     { merkez_telefon_id: 2, telefon: "0535 628 90 52" },
   ]);
-  await knex("MerkezPersonel").insert([
-    //buraya tekrar bak
-  ]);
+  await knex("DanisanSayisi").insert([{ merkez_id: 1, danisan_sayisi: 524 }]);
   await knex("MerkezIsBirligi").insert([
-    { Merkez_is_birligi_id: 1, is_birligi_kurum_adi: "İzmit Belediyesi" },
-    { Merkez_is_birligi_id: 2, is_birligi_kurum_adi: "Mor Yerleske" },
-    { Merkez_is_birligi_id: 3, is_birligi_kurum_adi: "Samandag Belediyesi" },
-    { Merkez_is_birligi_id: 4, is_birligi_kurum_adi: "Suna'nin Kizlari" },
-    { Merkez_is_birligi_id: 5, is_birligi_kurum_adi: "MAYA" },
-    { Merkez_is_birligi_id: 6, is_birligi_kurum_adi: "ACEV" },
-    { Merkez_is_birligi_id: 7, is_birligi_kurum_adi: "İBB" },
-    { Merkez_is_birligi_id: 8, is_birligi_kurum_adi: "MSF" },
-    { Merkez_is_birligi_id: 9, is_birligi_kurum_adi: "Unicef" },
-    { Merkez_is_birligi_id: 10, is_birligi_kurum_adi: "Hayata Destek Dernegi" },
-    { Merkez_is_birligi_id: 11, is_birligi_kurum_adi: "World Human Relief " },
+    {
+      Merkez_is_birligi_id: 1,
+      merkez_id: 1,
+      is_birligi_kurum_adi: "İzmit Belediyesi",
+    },
+    {
+      Merkez_is_birligi_id: 2,
+      merkez_id: 1,
+      is_birligi_kurum_adi: "Mor Yerleske",
+    },
+    {
+      Merkez_is_birligi_id: 3,
+      merkez_id: 1,
+      is_birligi_kurum_adi: "Samandag Belediyesi",
+    },
+    {
+      Merkez_is_birligi_id: 4,
+      merkez_id: 1,
+      is_birligi_kurum_adi: "Suna'nin Kizlari",
+    },
+    { Merkez_is_birligi_id: 5, merkez_id: 1, is_birligi_kurum_adi: "MAYA" },
+    { Merkez_is_birligi_id: 6, merkez_id: 1, is_birligi_kurum_adi: "ACEV" },
+    { Merkez_is_birligi_id: 7, merkez_id: 1, is_birligi_kurum_adi: "İBB" },
+    { Merkez_is_birligi_id: 8, merkez_id: 1, is_birligi_kurum_adi: "MSF" },
+    { Merkez_is_birligi_id: 9, merkez_id: 1, is_birligi_kurum_adi: "Unicef" },
+    {
+      Merkez_is_birligi_id: 10,
+      merkez_id: 1,
+      is_birligi_kurum_adi: "Hayata Destek Dernegi",
+    },
+    {
+      Merkez_is_birligi_id: 11,
+      merkez_id: 1,
+      is_birligi_kurum_adi: "World Human Relief ",
+    },
+  ]);
+  await knex("AracSayisi").insert([
+    {
+      arac_sayisi_id: 1,
+      merkez_id: 1,
+      binek_arac: 1,
+      gezici_karavan: 1,
+      diger: 0,
+    },
   ]);
 };

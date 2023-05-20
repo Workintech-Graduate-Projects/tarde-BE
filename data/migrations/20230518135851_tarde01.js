@@ -36,22 +36,16 @@ exports.up = function (knex) {
 
       tablo.string("telefon").notNullable();
     })
-    .createTable("MerkezPersonel", (tablo) => {
-      tablo.increments("merkez_personel_id");
+    .createTable("DanisanSayisi", (tablo) => {
+      tablo.increments("danisan_sayisi_id");
       tablo
         .integer("merkez_id")
         .references("merkez_id")
         .inTable("Merkez")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
-      tablo
-        .increments("Personel_id")
-        .integer("Personel_id")
-        .inTable("Personel");
-      tablo
-        .timestamp("created_at")
-        .defaultTo(knex.fn.now())
-        .integer("Danisan_sayisi");
+      tablo.timestamp("created_at").defaultTo(knex.fn.now());
+      tablo.integer("danisan_sayisi");
     })
     .createTable("MerkezIsBirligi", (tablo) => {
       tablo.increments("Merkez_is_birligi_id");
@@ -66,8 +60,14 @@ exports.up = function (knex) {
     .createTable("AracSayisi", (tablo) => {
       tablo.increments("arac_sayisi_id");
       tablo.integer("binek_arac");
-      tablo.integer("gezici karavan");
+      tablo.integer("gezici_karavan");
       tablo.integer("diger");
+      tablo
+        .integer("merkez_id")
+        .references("merkez_id")
+        .inTable("Merkez")
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE");
     });
 };
 /**
@@ -76,8 +76,9 @@ exports.up = function (knex) {
  */
 exports.down = function (knex) {
   return knex.schema
+    .dropTableIfExists("AracSayisi")
     .dropTableIfExists("MerkezIsBirligi")
-    .dropTableIfExists("MerkezPersonel")
+    .dropTableIfExists("DanisanSayisi")
     .dropTableIfExists("MerkezTelefon")
     .dropTableIfExists("Personel")
     .dropTableIfExists("Merkez")
