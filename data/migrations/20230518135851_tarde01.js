@@ -13,6 +13,7 @@ exports.up = function (knex) {
     .createTable("Merkez", (tablo) => {
       tablo.increments("merkez_id");
       tablo.string("merkez_adi").notNullable();
+      tablo.integer("");
       tablo
         .integer("sehir_id")
         .references("sehir_id")
@@ -23,9 +24,13 @@ exports.up = function (knex) {
       tablo.string("merkez_adres");
     })
     .createTable("Personel", (tablo) => {
-      tablo.increments("personel_id").unique(), tablo.string("personel_adi");
+      tablo.increments("personel_id").unique();
+      tablo.string("personel_adi");
+      tablo.string("username", 128).notNullable().unique();
+      tablo.string("password", 128).notNullable();
     })
     .createTable("MerkezTelefon", (tablo) => {
+      //sehir_id
       tablo.increments("merkez_telefon_id");
       tablo
         .integer("merkez_id")
@@ -68,6 +73,11 @@ exports.up = function (knex) {
         .inTable("Merkez")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
+    })
+    .createTable("users", (users) => {
+      users.increments("user_id");
+      users.string("username", 128).notNullable().unique();
+      users.string("password", 128).notNullable();
     });
 };
 /**
@@ -76,6 +86,7 @@ exports.up = function (knex) {
  */
 exports.down = function (knex) {
   return knex.schema
+    .dropTableIfExists("users")
     .dropTableIfExists("AracSayisi")
     .dropTableIfExists("MerkezIsBirligi")
     .dropTableIfExists("DanisanSayisi")
