@@ -13,21 +13,40 @@ exports.up = function (knex) {
     .createTable("Merkez", (tablo) => {
       tablo.increments("merkez_id");
       tablo.string("merkez_adi").notNullable();
-      tablo.integer("");
+      tablo.decimal("enlem").notNullable();
+      tablo.decimal("boylam").notNullable();
       tablo
         .integer("sehir_id")
+        .notNullable()
         .references("sehir_id")
         .inTable("Sehir")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
 
-      tablo.string("merkez_adres");
+      tablo.string("adres");
     })
     .createTable("Personel", (tablo) => {
-      tablo.increments("personel_id").unique();
-      tablo.string("personel_adi");
-      tablo.string("username", 128).notNullable().unique();
-      tablo.string("password", 128).notNullable();
+      tablo.increments("personel_id");
+      tablo.string("personel_adi").notNullable();
+    })
+    .createTable("MerkezPersonel", (tablo) => {
+      tablo.increments("merkez_personel_id");
+      tablo
+        .integer("personel_id")
+        .notNullable()
+        .references("personel_id")
+        .inTable("Personel")
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE");
+      tablo
+        .integer("merkez_id")
+        .notNullable()
+        .references("merkez_id")
+        .inTable("Merkez")
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE");
+      tablo.integer("danisan_sayisi").notNullable();
+      tablo.dateTime("tarih");
     })
     .createTable("MerkezTelefon", (tablo) => {
       //sehir_id
@@ -41,17 +60,6 @@ exports.up = function (knex) {
 
       tablo.string("telefon").notNullable();
     })
-    .createTable("DanisanSayisi", (tablo) => {
-      tablo.increments("danisan_sayisi_id");
-      tablo
-        .integer("merkez_id")
-        .references("merkez_id")
-        .inTable("Merkez")
-        .onUpdate("CASCADE")
-        .onDelete("CASCADE");
-      tablo.timestamp("created_at").defaultTo(knex.fn.now());
-      tablo.integer("danisan_sayisi");
-    })
     .createTable("MerkezIsBirligi", (tablo) => {
       tablo.increments("Merkez_is_birligi_id");
       tablo
@@ -60,13 +68,12 @@ exports.up = function (knex) {
         .inTable("Merkez")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
-      tablo.string("is_birligi_kurum_adi");
+      tablo.string("is_birligi_kurum_adi").notNullable();
     })
     .createTable("AracSayisi", (tablo) => {
       tablo.increments("arac_sayisi_id");
-      tablo.integer("binek_arac");
-      tablo.integer("gezici_karavan");
-      tablo.integer("diger");
+      tablo.string("arac_adi").notNullable();
+      tablo.integer("arac_sayisi").notNullable();
       tablo
         .integer("merkez_id")
         .references("merkez_id")
@@ -74,10 +81,10 @@ exports.up = function (knex) {
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
     })
-    .createTable("users", (users) => {
-      users.increments("user_id");
-      users.string("username", 128).notNullable().unique();
-      users.string("password", 128).notNullable();
+    .createTable("users", (tablo) => {
+      tablo.increments("user_id");
+      tablo.string("username", 128).notNullable().unique();
+      tablo.string("password", 128).notNullable();
     });
 };
 /**
@@ -88,6 +95,7 @@ exports.down = function (knex) {
   return knex.schema
     .dropTableIfExists("users")
     .dropTableIfExists("AracSayisi")
+    .dropTableIfExists("MerkezPersonel")
     .dropTableIfExists("MerkezIsBirligi")
     .dropTableIfExists("DanisanSayisi")
     .dropTableIfExists("MerkezTelefon")

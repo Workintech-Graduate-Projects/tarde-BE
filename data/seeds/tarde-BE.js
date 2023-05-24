@@ -7,7 +7,6 @@ const { default: knex } = require("knex");
 exports.seed = async function (knex) {
   // Deletes ALL existing entries
   await knex("MerkezIsBirligi").truncate();
-  await knex("DanisanSayisi").truncate();
   await knex("MerkezTelefon").truncate();
   await knex("Personel").truncate();
   await knex("Merkez").truncate();
@@ -16,54 +15,102 @@ exports.seed = async function (knex) {
   await knex("Sehir").insert([
     { sehir_id: 1, sehir_adi: "Hatay/iskenderun" },
     { sehir_id: 2, sehir_adi: "Adiyaman" },
-    { sehir_id: 3, sehir_adi: "Antep" },
-    { sehir_id: 4, sehir_adi: "Urfa" },
+    { sehir_id: 3, sehir_adi: "Gaziantep" },
+    { sehir_id: 4, sehir_adi: "Sanliurfa" },
     { sehir_id: 5, sehir_adi: "Kahramanmaras" },
     { sehir_id: 6, sehir_adi: "Osmaniye" },
     { sehir_id: 7, sehir_adi: "Malatya" },
     { sehir_id: 8, sehir_adi: "Diyarbakir" },
   ]);
   await knex("Merkez").insert([
-    { merkez_id: 1, sehir_id: 1, merkez_adi: "IBB Afet Koordinasyon Merkezi" },
-    { merkez_id: 2, sehir_id: 1, merkez_adi: "Harbiye/Hidropark Cadırkent" },
-    { merkez_id: 3, sehir_id: 1, merkez_adi: "Samandag Konteyner Kent" },
+    {
+      merkez_id: 1,
+      sehir_id: 1,
+      merkez_adi: "IBB Afet Koordinasyon Merkezi",
+      adres: "test test",
+      enlem: 38.3233075,
+      boylam: 37.7291557,
+    },
+    {
+      merkez_id: 2,
+      sehir_id: 1,
+      merkez_adi: "Harbiye/Hidropark Cadırkent",
+      adres: "test test",
+      enlem: 38.3233075,
+      boylam: 37.7291557,
+    },
+    /* { merkez_id: 3, sehir_id: 1, merkez_adi: "Samandag Konteyner Kent" },
     { merkez_id: 4, sehir_id: 1, merkez_adi: "Orhanli Konteyner Kent" },
+    {
+      merkez_id: 5,
+      sehir_id: 3,
+      merkez_adi: "Gorusme Konteyneri - Nurdagi 1 Konteyner Kent",
+    },
+    {
+      merkez_id: 6,
+      sehir_id: 3,
+      merkez_adi:
+        "Mobil Ekip - TOKI Konteyner Egitim Kampusu, Nurdagi B-1 ve C-1",
+    },
+    { merkez_id: 7, sehir_id: 3, merkez_adi: "Mobil Ekip - Ahbap Okullari" },
+    { merkez_id: 8, sehir_id: 3, merkez_adi: "Mobil Ekip - Nurdagi 2" },
+    { merkez_id: 9, sehir_id: 3, merkez_adi: "Mobil Ekip - Fatih Mahallesi" },
+    { merkez_id: 10, sehir_id: 3, merkez_adi: "Mobil Ekip - Yeni Mahalle" },
+    {
+      merkez_id: 11,
+      sehir_id: 3,
+      merkez_adi: "Mobil Ekip - Kurudere Mahallesi",
+    },
+    {
+      merkez_id: 12,
+      sehir_id: 2,
+      merkez_adi:
+        "Mersin Buyuksehir Belediyesi Konteyner Kent, K12 Çalışma ve Yaşam Ofisi",
+    },*/
   ]);
   await knex("Personel").insert([
     { personel_id: 1, personel_adi: "Sergen Tut" },
     { personel_id: 2, personel_adi: "Ebru Akkoyun" },
-    { personel_id: 3, personel_adi: "Tilbe Yigit" },
-    { personel_id: 4, personel_adi: "Ayse Baykara" },
-    { personel_id: 5, personel_adi: "Fatma Boz" },
-    { personel_id: 6, personel_adi: "Feyza Nur Ak" },
-    { personel_id: 7, personel_adi: "Mehmet Zekeriya Cincinoglu" },
-    { personel_id: 8, personel_adi: "Busra Basik" },
-    { personel_id: 9, personel_adi: "Zeynep Gultenkilisli" },
-    { personel_id: 10, personel_adi: "Zeynep Gultenkilisli" },
-    { personel_id: 11, personel_adi: "Deniz Onuk" },
-    { personel_id: 12, personel_adi: "Sinan Turkmen" },
-    { personel_id: 13, personel_adi: "Evin Korsu" },
-    { personel_id: 14, personel_adi: "Pinar Avcil" },
-    { personel_id: 15, personel_adi: "Havvanur Mercimek" },
-    { personel_id: 16, personel_adi: "Merve Nur Kazgi" },
-    { personel_id: 17, personel_adi: "Sumeyra Al" },
-    { personel_id: 18, personel_adi: "Canan Tutunen" },
-    { personel_id: 19, personel_adi: "Dilan Akgul" },
-    { personel_id: 20, personel_adi: "Abidin Aydin" },
-    { personel_id: 21, personel_adi: "Mehmet Ercan" },
-    { personel_id: 22, personel_adi: "Yarencan Cingir" },
-    { personel_id: 23, personel_adi: "Ayca Dagilgan " },
-    { personel_id: 24, personel_adi: "Gozde Murt" },
-    { personel_id: 25, personel_adi: "Sumeyra Sulu" },
-    { personel_id: 26, personel_adi: "Derya Genc" },
-    { personel_id: 27, personel_adi: "Sevgi Tarhan" },
-    { personel_id: 28, personel_adi: "Şevval Çoban" },
+    /* { personel_id: 3, sehir_id: 1, personel_adi: "Tilbe Yigit" },
+    { personel_id: 4, sehir_id: 1, personel_adi: "Ayse Baykara" },
+    { personel_id: 5, sehir_id: 1, personel_adi: "Fatma Boz" },
+    { personel_id: 6, sehir_id: 1, personel_adi: "Feyza Nur Ak" },
+    { personel_id: 7, sehir_id: 1, personel_adi: "Mehmet Zekeriya Cincinoglu" },
+    { personel_id: 8, sehir_id: 1, personel_adi: "Busra Basik" },
+    {
+      personel_id: 9,
+      sehir_id: 1,
+      sehir_id: 2,
+      personel_adi: "Zeynep Gultenkilisli",
+    },
+
+    { personel_id: 10, personel_adi: "Deniz Onuk" },
+    { personel_id: 11, personel_adi: "Sinan Turkmen" },
+    { personel_id: 12, personel_adi: "Evin Korsu" },
+    { personel_id: 13, personel_adi: "Pinar Avcil" },
+    { personel_id: 14, personel_adi: "Havvanur Mercimek" },
+    { personel_id: 15, personel_adi: "Merve Nur Kazgi" },
+    { personel_id: 16, personel_adi: "Sumeyra Al" },
+    { personel_id: 17, personel_adi: "Canan Tutunen" },
+    { personel_id: 18, personel_adi: "Dilan Akgul" },
+    { personel_id: 19, personel_adi: "Abidin Aydin" },
+    { personel_id: 20, personel_adi: "Mehmet Ercan" },
+    { personel_id: 21, personel_adi: "Yarencan Cingir" },
+    { personel_id: 22, personel_adi: "Ayca Dagilgan " },
+    { personel_id: 23, personel_adi: "Gozde Murt" },
+    { personel_id: 24, personel_adi: "Sumeyra Sulu" },
+    { personel_id: 25, personel_adi: "Derya Genc" },
+    { personel_id: 26, personel_adi: "Sevgi Tarhan" },
+    { personel_id: 27, personel_adi: "Şevval Çoban" },
+    { personel_id: 28, personel_adi: "Gizem Yilmaz" },*/
   ]);
   await knex("MerkezTelefon").insert([
-    { merkez_telefon_id: 1, telefon: "0533 289 00 61" },
-    { merkez_telefon_id: 2, telefon: "0535 628 90 52" },
+    { merkez_telefon_id: 1, merkez_id: 1, telefon: "0533 289 00 61" },
+    { merkez_telefon_id: 2, merkez_id: 1, telefon: "0535 628 90 52" },
+    { merkez_telefon_id: 3, merkez_id: 1, telefon: "0532 330 16 33" },
+    { merkez_telefon_id: 4, merkez_id: 1, telefon: "0539 774 35 75" },
   ]);
-  await knex("DanisanSayisi").insert([{ merkez_id: 1, danisan_sayisi: 524 }]);
+
   await knex("MerkezIsBirligi").insert([
     {
       Merkez_is_birligi_id: 1,
@@ -105,9 +152,9 @@ exports.seed = async function (knex) {
     {
       arac_sayisi_id: 1,
       merkez_id: 1,
-      binek_arac: 1,
-      gezici_karavan: 1,
-      diger: 0,
+      arac_adi: "binek",
+      arac_sayisi: 1,
     },
   ]);
+  await knex("users").insert([{ username: "admin", password: 1234 }]);
 };
