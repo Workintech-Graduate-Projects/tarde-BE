@@ -23,14 +23,16 @@ exports.up = function (knex) {
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
 
-      tablo.string("adres");
+      tablo.string("adres").notNullable();
+      tablo.string("telefon_numarasi").notNullable();
+      tablo.dateTime("hizmet_baslangic_tarihi");
     })
     .createTable("Personel", (tablo) => {
       tablo.increments("personel_id");
       tablo.string("personel_adi").notNullable();
     })
-    .createTable("MerkezPersonel", (tablo) => {
-      tablo.increments("merkez_personel_id");
+    .createTable("hizmet", (tablo) => {
+      tablo.increments("hizmet_id");
       tablo
         .integer("personel_id")
         .notNullable()
@@ -48,8 +50,24 @@ exports.up = function (knex) {
       tablo.integer("danisan_sayisi").notNullable();
       tablo.dateTime("tarih");
     })
+    .createTable("MerkezPersonel", (tablo) => {
+      tablo.increments("merkez_personel_id");
+      tablo
+        .integer("personel_id")
+        .notNullable()
+        .references("personel_id")
+        .inTable("Personel")
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE");
+      tablo
+        .integer("merkez_id")
+        .notNullable()
+        .references("merkez_id")
+        .inTable("Merkez")
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE");
+    })
     .createTable("MerkezTelefon", (tablo) => {
-      //sehir_id
       tablo.increments("merkez_telefon_id");
       tablo
         .integer("merkez_id")
@@ -57,7 +75,6 @@ exports.up = function (knex) {
         .inTable("Merkez")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
-
       tablo.string("telefon").notNullable();
     })
     .createTable("MerkezIsBirligi", (tablo) => {
