@@ -51,23 +51,9 @@ async function usernameGecerlimi(req, res, next) {
     next(error);
   }
 }
-function limit(req, res, next) {
-  try {
-    if (req.session && req.session.user_id) {
-      next();
-    } else {
-      next({
-        status: 401,
-        message: "Panele yalnızca danışmanlar giriş yapabilir",
-      });
-    }
-  } catch (error) {
-    next(error);
-  }
-}
+
 module.exports = {
   kullaniciAdiVarmi,
   sifreGecerlimi,
   usernameGecerlimi,
-  limit,
 };
