@@ -41,4 +41,13 @@ router.get(
   );
 
 
+  // Merkez Ekleme
+router.post("/merkez", async(req,res,next)=>{
+  try {
+    
+  } catch (error) {
+    
+  }
+})
+
   module.exports = router;
