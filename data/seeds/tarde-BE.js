@@ -30,6 +30,7 @@ exports.seed = async function (knex) {
       adres: "test test",
       enlem: 38.3233075,
       boylam: 37.7291557,
+      telefon: 05313011111,
     },
     {
       merkez_id: 2,
@@ -38,6 +39,7 @@ exports.seed = async function (knex) {
       adres: "test test",
       enlem: 38.3233075,
       boylam: 37.7291557,
+      telefon: 05313011111,
     },
     /* { merkez_id: 3, sehir_id: 1, merkez_adi: "Samandag Konteyner Kent" },
     { merkez_id: 4, sehir_id: 1, merkez_adi: "Orhanli Konteyner Kent" },
@@ -103,6 +105,10 @@ exports.seed = async function (knex) {
     { personel_id: 26, personel_adi: "Sevgi Tarhan" },
     { personel_id: 27, personel_adi: "Şevval Çoban" },
     { personel_id: 28, personel_adi: "Gizem Yilmaz" },*/
+  ]);
+  await knex("hizmet").insert([
+    { hizmet_id: 1, merkez_id: 1, danisan_sayisi: 32, tarih: "01.02.2023" },
+    //tarih formatı yeniden ele alınabilir
   ]);
   await knex("MerkezTelefon").insert([
     { merkez_telefon_id: 1, merkez_id: 1, telefon: "0533 289 00 61" },
