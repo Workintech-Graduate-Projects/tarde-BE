@@ -25,7 +25,9 @@ exports.up = function (knex) {
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
 
-      tablo.string("adres");
+      tablo.string("adres").notNullable();
+      tablo.string("telefon_numarasi").notNullable();
+      tablo.dateTime("hizmet_baslangic_tarihi");
     })
     .createTable("Personel", (tablo) => {
       tablo.increments("personel_id");
@@ -38,8 +40,8 @@ exports.up = function (knex) {
       tablo.string("personel_adres");
       tablo.boolean("personel_calisma_durumu");
     })
-    .createTable("MerkezPersonel", (tablo) => {
-      tablo.increments("merkez_personel_id");
+    .createTable("hizmet", (tablo) => {
+      tablo.increments("hizmet_id");
       tablo
         .integer("personel_id")
         .notNullable()

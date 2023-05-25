@@ -19,28 +19,33 @@ router.post(
   }
 );
 
-router.post("/login", mw.kullaniciAdiVarmi, async (req, res, next) => {
-  try {
-    let isValidPassword = bcryptjs.compareSync(
-      req.body.username,
-      ExistUsers.password
-    );
-    if (isValidPassword) {
-      res.json({
-        message: `Hoşgeldin ${req.body.username}`,
-      });
-    } else {
-      //LOGIN  -  cookie session
-      req.session.user_id = req.ExistUsers.user_id;
-      next({
-        status: 401,
-        message: "Geçersiz kriter",
-      });
+router.post(
+  "/login",
+  mw.kullaniciAdiVarmi,
+  mw.sifreGecerlimi,
+  async (req, res, next) => {
+    try {
+      let isValidPassword = bcryptjs.compareSync(
+        req.body.username,
+        ExistUsers.password
+      );
+      if (isValidPassword) {
+        res.json({
+          message: `Hoşgeldin ${req.body.username}`,
+        });
+      } else {
+        //LOGIN  -  cookie session
+        req.session.user_id = req.ExistUsers.user_id;
+        next({
+          status: 401,
+          message: "Geçersiz kriter",
+        });
+      }
+    } catch (error) {
+      next(error);
     }
-  } catch (error) {
-    next(error);
   }
-});
+);
 router.get("/logout", (req, res, next) => {
   try {
     if (req.session.user_id) {
@@ -59,12 +64,13 @@ router.get("/logout", (req, res, next) => {
   } catch (error) {}
 });
 router.post(
+  //gönderilen bilgileri kullanarak bir kullanıcı oluşturur.
   "/register",
   mw.sifreGecerlimi,
   mw.kullaniciAdiVarmi,
   (req, res, next) => {
     try {
-      let hashedPassword = bcryptjs.hashSync(req.body.password);
+      let hashedPassword = bcryptjs.hashSync(req.body.password); //tekrar bak
     } catch (error) {
       next(error);
     }

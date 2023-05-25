@@ -32,6 +32,7 @@ exports.seed = async function (knex) {
       adres: "test test",
       enlem: 38.3233075,
       boylam: 37.7291557,
+      telefon: 05313011111,
     },
     {
       merkez_id: 2,
@@ -40,6 +41,7 @@ exports.seed = async function (knex) {
       adres: "test test",
       enlem: 38.3233075,
       boylam: 37.7291557,
+      telefon: 05313011111,
     },
    { merkez_id: 3, sehir_id: 1, merkez_adi: "Samandag Konteyner Kent" },
     { merkez_id: 4, sehir_id: 1, merkez_adi: "Orhanli Konteyner Kent" },
