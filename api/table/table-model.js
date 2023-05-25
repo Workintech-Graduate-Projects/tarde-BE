@@ -5,7 +5,11 @@ const getAll = async () => {
 };
 
 const getById = async (merkez_id) => {
-  return db("Merkez as M", "MerkezPersonel as mp")
+const subquery= db("MerkezPersonel as mp")
+.where("mp.merkez_id", merkez_id)
+.sum("mp.danisan_sayisi");
+
+  return db("Merkez as M")
     .where("merkez_id", merkez_id)
     .leftJoin("Sehir as s", "s.sehir_id", "M.sehir_id")
     .select(
@@ -14,7 +18,7 @@ const getById = async (merkez_id) => {
       "M.merkez_telefon_2",
       "M.sehir_id",
       "M.adres",
-      "s.sehir_adi"
+      "s.sehir_adi",subquery.as("total")
     );
 };
 const getCoordinates = async (merkez_id) => {
