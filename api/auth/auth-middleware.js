@@ -7,7 +7,7 @@ async function kullaniciAdiVarmi(req, res, next) {
     if (isExistUser && isExistUser.length) {
       next({
         status: 422,
-        message: "Girilen username kullanılıyor",
+        message: "Girilen isim sistemde mevcut",
       });
     } else {
       req.body.password = bcrypt.hashSync(req.body.password);
