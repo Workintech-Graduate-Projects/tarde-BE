@@ -4,24 +4,20 @@ const getAll = async () => {
   return db("Merkez as M");
 };
 
-const getById = async (merkez_id) => {
+const getById = async (sehir_id) => {
 
-const subquerySum= db("MerkezPersonel as mp")
-.where("mp.merkez_id", merkez_id)
+const subquerySum= db("MerkezPersonel as mp").leftJoin("Merkez as M","M.merkez_id","mp.merkez_id").where("M.sehir_id",sehir_id)
 .sum("mp.danisan_sayisi");
 
-const subquery= db("MerkezPersonel as mp")
-.where("mp.merkez_id", merkez_id)
-.sum("mp.danisan_sayisi");
   return db("Merkez as M")
-    .leftJoin("Sehir as s", "s.sehir_id", "M.sehir_id")
-    .select(
+    .leftJoin("Sehir as s", "s.sehir_id", "M.sehir_id").where("s.sehir_id",sehir_id).select(
+      "M.merkez_adi",
       "M.merkez_id",
       "M.merkez_telefon_1",
       "M.merkez_telefon_2",
       "M.sehir_id",
       "M.adres",
-      "s.sehir_adi",subquerySum.as("total")
+      "s.sehir_adi",subquerySum.as("total"),
     );
 };
 const getCoordinates = async () => {
