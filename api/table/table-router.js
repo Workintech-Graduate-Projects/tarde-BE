@@ -3,11 +3,11 @@ const model =require("./table-model");
 
 // merkezlerin id ile çekildiği kısım
 router.get(
-    "/merkez/:id",
+    "/sehir/:id",
     async (req, res, next) => {
       try {
-        const merkezler = await model.getById(req.params.id);
-     res.status(200).json(merkezler)
+        const sehirler = await model.getById(req.params.id);
+     res.status(200).json(sehirler)
       } catch (error) {
         next(error);
       }
