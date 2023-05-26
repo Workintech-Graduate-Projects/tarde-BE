@@ -29,10 +29,10 @@ router.get(
 
 // Merkezlerin coordinatları
 router.get(
-    "/coordinate/:id",
+    "/coordinate",
     async (req, res, next) => {
       try {
-        const coordinates= await model.getCoordinates(req.params.id)
+        const coordinates= await model.getCoordinates()
         res.status(200).json(coordinates)
       } catch (error) {
         next(error);

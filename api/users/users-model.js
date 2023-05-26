@@ -21,7 +21,7 @@ const ThinkFitForid = async (user_id) => {
   //await ve first birlikte kullanıldığında sorun çıkarabiliyor.
   // sorun çıkarsa filteredUsers[0] dene.
   return filteredUsers;
-};
+};    
 const insertUser = async (user) => {
   await db("users").insert(user);
   return {message:"Üye olundu"}
