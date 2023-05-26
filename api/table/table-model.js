@@ -11,6 +11,7 @@ const subquerySum= db("MerkezPersonel as mp").leftJoin("Merkez as M","M.merkez_i
 
   return db("Merkez as M")
     .leftJoin("Sehir as s", "s.sehir_id", "M.sehir_id").where("s.sehir_id",sehir_id).select(
+      "M.merkez_adi",
       "M.merkez_id",
       "M.merkez_telefon_1",
       "M.merkez_telefon_2",
