@@ -5,8 +5,8 @@ const userModel = require("../users/users-model");
 
 router.post(
   "/register",
-  mw.sifreGecerlimi,
-  mw.usernameGecerlimi,
+  m.sifreGecerlimi,
+  m.usernameGecerlimi,
   async (req, res, next) => {
     try {
       let hashedPassword = bcryptjs.hashSync(req.body.password);
@@ -21,8 +21,8 @@ router.post(
 
 router.post(
   "/login",
-  mw.kullaniciAdiVarmi,
-  mw.sifreGecerlimi,
+  m.kullaniciAdiVarmi,
+  m.sifreGecerlimi,
   async (req, res, next) => {
     try {
       let isValidPassword = bcryptjs.compareSync(
