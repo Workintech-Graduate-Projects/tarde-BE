@@ -1,7 +1,7 @@
 const userModel = require("../users/users-model");
 const bcrypt = require("bcryptjs");
 
-const kullaniciAdiVarmi = async (req, res, next)=> {
+const kullaniciAdiVarmi = async (req, res, next) => {
   try {
     let isExistUser = await userModel.goreBul({ username: req.body.username });
     if (isExistUser && isExistUser.length) {
@@ -16,9 +16,9 @@ const kullaniciAdiVarmi = async (req, res, next)=> {
   } catch (error) {
     next(error);
   }
-}
+};
 
-const sifreGecerlimi= async(req, res, next)=>{
+const sifreGecerlimi = async (req, res, next) => {
   try {
     let { password } = req.body;
     if (!password || password.length < 3) {
@@ -32,16 +32,19 @@ const sifreGecerlimi= async(req, res, next)=>{
   } catch (error) {
     next(error);
   }
-}
+};
 
-const usernameGecerlimi= async (req, res, next)=> {
+const usernameGecerlimi = async (req, res, next) => {
   try {
-    let isExistUser = await userModel.ThinkFitForName({username: req.body.username});
+    let isExistUser = await userModel.ThinkFitForName({
+      username: req.body.username,
+    });
     if (isExistUser[0]) {
-      res.status(401).json({message: "FATAL ERROR : !!!! Bu kullanıcı mevcuttur !!!! "})
-      }
-    else{
-        next()
+      res
+        .status(401)
+        .json({ message: "FATAL ERROR : !!!! Bu kullanıcı mevcuttur !!!! " });
+    } else {
+      next();
     }
     //  else {
     //   req.ExistUsers = isExistUser[0];
@@ -49,7 +52,7 @@ const usernameGecerlimi= async (req, res, next)=> {
   } catch (error) {
     next(error);
   }
-}
+};
 
 module.exports = {
   kullaniciAdiVarmi,
