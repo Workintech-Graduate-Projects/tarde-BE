@@ -1,7 +1,7 @@
 const userModel = require("../users/users-model");
 const bcrypt = require("bcryptjs");
 
-async function kullaniciAdiVarmi(req, res, next) {
+const kullaniciAdiVarmi = async (req, res, next) => {
   try {
     let isExistUser = await userModel.goreBul({ username: req.body.username });
     if (isExistUser && isExistUser.length) {
@@ -16,9 +16,9 @@ async function kullaniciAdiVarmi(req, res, next) {
   } catch (error) {
     next(error);
   }
-}
+};
 
-async function sifreGecerlimi(req, res, next) {
+const sifreGecerlimi = async (req, res, next) => {
   try {
     let { password } = req.body;
     if (!password || password.length < 3) {
@@ -32,25 +32,27 @@ async function sifreGecerlimi(req, res, next) {
   } catch (error) {
     next(error);
   }
-}
+};
 
-async function usernameGecerlimi(req, res, next) {
+const usernameGecerlimi = async (req, res, next) => {
   try {
-    let isExistUser = await userModel.ThinkFitFor({
+    let isExistUser = await userModel.ThinkFitForName({
       username: req.body.username,
     });
-    if (!isExistUser) {
-      next({
-        status: 401,
-        message: "Geçersiz kriter",
-      });
+    if (isExistUser[0]) {
+      res
+        .status(401)
+        .json({ message: "FATAL ERROR : !!!! Bu kullanıcı mevcuttur !!!! " });
     } else {
-      req.ExistUsers = isExistUser[0];
+      next();
     }
+    //  else {
+    //   req.ExistUsers = isExistUser[0];
+    // }
   } catch (error) {
     next(error);
   }
-}
+};
 
 module.exports = {
   kullaniciAdiVarmi,
