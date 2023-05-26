@@ -2,13 +2,14 @@ const router = require("express").Router();
 const md = require("./users-model");
 const mw = require("./users-middleware");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 //KAYIT
 
 router.post(
   "/register",
   mw.usernameGecerlimi,
-   mw.sifreGecerlimi,
+  mw.sifreGecerlimi,
   async (req, res, next) => {
     try {
       const model = {
@@ -26,52 +27,51 @@ router.post(
 
 // GİRİŞ
 
-// router.post(
-//   "/login",
-//   mw.kullaniciAdiVarmi,
-//   mw.sifreGecerlimi,
-//   async (req, res, next) => {
-//     try {
-//       let isValidPassword = bcrypt.compareSync(
-//         req.body.username,
-//         ExistUsers.password
-//       );
-//       if (isValidPassword) {
-//         res.json({
-//           message: `Hoşgeldin ${req.body.username}`,
-//         });
-//       } else {
-//         //LOGIN  -  cookie session
-//         req.session.user_id = req.ExistUsers.user_id;
-//         next({
-//           status: 401,
-//           message: "Geçersiz kriter",
-//         });
-//       }
-//     } catch (error) {
-//       next(error);
-//     }
-//   }
-// );
+router.post(
+  "/login",
+  mw.kullaniciAdiVarmi,
+  mw.sifreGecerlimi,
+  async (req, res) => {
+    const user = req.body;
+    const registeredUser = await user.getByusername(user.username);
+    if (
+      registeredUser &&
+      bcrypt.compareSync(user.password, registeredUser.password)
+    ) {
+      const token = generateToken(user);
+      res.status(200).json({
+        message: `Welcome ${registeredUser.username}, token:${token}`,
+      });
+    } else {
+      res.status(403).json({ message: `Giris yapilamadi` });
+    }
+  }
+);
+//ÇIKIŞ
+router.get("/logout", (req, res) => {
+  if (req.session) {
+    req.session.destroy((err) => {
+      if (err) {
+        res.status(400).json({ message: "cikis hata verdi" });
+      } else {
+        res.status(200).json({ message: "cikis basarili " });
+      }
+    });
+  }
+});
 
-// //ÇIKIŞ
-
-// router.get("/logout", (req, res, next) => {
-//   try {
-//     if (req.session.user_id) {
-//       req.session.destroy((err) => {
-//         if (err) {
-//           res.status(500).json({ message: "Hata oluştu" });
-//         } else {
-//           res.json({ message: "Çıkış Yapıldı" });
-//         }
-//       });
-//     } else {
-//       res.status(200).json({
-//         message: "Oturum bulunamadı",
-//       });
-//     }
-//   } catch (error) {}
-// });
+router.post("/reset_password", (req, res) => {
+  res.status(200).json({ message: "password reset calisiyor" });
+});
+function generateToken(user) {
+  const payload = {
+    subject: user.id,
+    name: user.username,
+  };
+  const options = {
+    expiresIn: "1d",
+  };
+  return jwt.sign(payload, options);
+}
 
 module.exports = router;
