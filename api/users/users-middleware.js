@@ -3,7 +3,8 @@ const bcrypt = require("bcryptjs");
 
 const kullaniciAdiVarmi = async (req, res, next) => {
   try {
-    let isExistUser = await userModel.goreBul({ username: req.body.username });
+    const isExistUser = await userModel.ThinkFitForName(req.body.username);
+
     if (isExistUser && isExistUser.length) {
       next({
         status: 422,
