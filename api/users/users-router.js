@@ -3,6 +3,18 @@ const md = require("./users-model");
 const mw = require("./users-middleware");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { JWT_SECRET } = require("../secrets/secretToken");
+
+const generateToken =(user)=> {
+  const payload = {
+    subject: user.id,
+    name: user.username,
+  };
+  const options = {
+    expiresIn: "1d",
+  };
+  return jwt.sign(payload, JWT_SECRET,options);
+}
 
 //KAYIT
 
@@ -29,11 +41,11 @@ router.post(
 
 router.post(
   "/login",
-  mw.kullaniciAdiVarmi,
+  // mw.kullaniciAdiVarmi,
   mw.sifreGecerlimi,
   async (req, res) => {
-    const user = req.body;
-    const registeredUser = await user.getByusername(user.username);
+    const user = {username:req.body.username,}
+    const registeredUser = await md.ThinkFitForName(req.body.username);
     if (
       registeredUser &&
       bcrypt.compareSync(user.password, registeredUser.password)
@@ -63,15 +75,5 @@ router.get("/logout", (req, res) => {
 router.post("/reset_password", (req, res) => {
   res.status(200).json({ message: "password reset calisiyor" });
 });
-function generateToken(user) {
-  const payload = {
-    subject: user.id,
-    name: user.username,
-  };
-  const options = {
-    expiresIn: "1d",
-  };
-  return jwt.sign(payload, options);
-}
 
 module.exports = router;
