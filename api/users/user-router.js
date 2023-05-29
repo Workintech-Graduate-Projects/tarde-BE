@@ -6,8 +6,6 @@ const jwt = require("jsonwebtoken");
 
 const { JWT_SECRET } = require("../../config/config");
 
-const { JWT_SECRET } = require("../secrets/secretToken");
-
 const generateToken = (user) => {
   const payload = {
     subject: user.id,
@@ -47,11 +45,8 @@ router.post(
   // mw.kullaniciAdiVarmi,
   mw.sifreGecerlimi,
   async (req, res) => {
-    const user = req.body;
-    const registeredUser = req.currentExistUser;
-
-    const user = { username: req.body.username };
-    const registeredUser = await md.ThinkFitForName(req.body.username);
+    const user = { username: req.body.username, password: req.body.password };
+    const registeredUser = await md.ThinkFitForName(user);
 
     if (
       registeredUser &&
@@ -82,15 +77,5 @@ router.get("/logout", (req, res) => {
 router.post("/reset_password", (req, res) => {
   res.status(200).json({ message: "password reset calisiyor" });
 });
-function generateToken(user) {
-  const payload = {
-    subject: user.id,
-    name: user.username,
-  };
-  const options = {
-    expiresIn: "1d",
-  };
-  return jwt.sign(payload, JWT_SECRET, options);
-}
 
 module.exports = router;
