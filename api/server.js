@@ -1,6 +1,12 @@
 const express = require("express");
+
 const helmet = require("helmet");
 const cors = require("cors");
+
+const cors = require("cors");
+const helmet = require("helmet");
+const userRouter = require("./users/users-router");
+const tableRouter = require("./table/table-router");
 
 const server = express();
 const userRouter = require("./users/user-router");
@@ -10,6 +16,8 @@ server.use(helmet());
 server.use(express.json());
 server.use(cors());
 
+server.use(cors());
+server.use(express.json());
 server.use("/api/users", userRouter);
 server.use("/api/table", tableRouter);
 

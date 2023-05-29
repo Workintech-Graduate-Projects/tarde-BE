@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const model =require("./table-model");
+const db = require("../../data/db-config");
 
 // merkezlerin id ile çekildiği kısım
 router.get(
@@ -7,6 +8,31 @@ router.get(
     async (req, res, next) => {
       try {
         const sehirler = await model.getById(req.params.id);
+     res.status(200).json(sehirler)
+      } catch (error) {
+        next(error);
+      }
+    }
+  );
+
+  // Admin merkez tablosu
+router.get(
+    "/admin/merkez/:id",
+    async (req, res, next) => {
+      try {
+        const sehirler = await db("Merkez").where("sehir_id",req.params.id);
+     res.status(200).json(sehirler)
+      } catch (error) {
+        next(error);
+      }
+    }
+  );
+    // Admin merkez tablosu
+router.get(
+    "/admin/personel/",
+    async (req, res, next) => {
+      try {
+        const sehirler = await db("Personel");
      res.status(200).json(sehirler)
       } catch (error) {
         next(error);
@@ -42,7 +68,7 @@ router.get(
 
 
   // Merkez Ekleme
-router.post("/merkez", async(req,res,next)=>{
+router.post("/sehir", async(req,res,next)=>{
   try {
     
   } catch (error) {

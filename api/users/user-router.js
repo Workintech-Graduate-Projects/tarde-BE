@@ -3,7 +3,21 @@ const md = require("./user-model");
 const mw = require("./user-middleware");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+
 const { JWT_SECRET } = require("../../config/config");
+
+const { JWT_SECRET } = require("../secrets/secretToken");
+
+const generateToken = (user) => {
+  const payload = {
+    subject: user.id,
+    name: user.username,
+  };
+  const options = {
+    expiresIn: "1d",
+  };
+  return jwt.sign(payload, JWT_SECRET, options);
+};
 
 //KAYIT
 
@@ -30,11 +44,15 @@ router.post(
 
 router.post(
   "/login",
-  mw.kullaniciAdiVarmi,
+  // mw.kullaniciAdiVarmi,
   mw.sifreGecerlimi,
   async (req, res) => {
     const user = req.body;
     const registeredUser = req.currentExistUser;
+
+    const user = { username: req.body.username };
+    const registeredUser = await md.ThinkFitForName(req.body.username);
+
     if (
       registeredUser &&
       bcrypt.compareSync(user.password, registeredUser.password)

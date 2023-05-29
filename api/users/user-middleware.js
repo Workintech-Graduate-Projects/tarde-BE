@@ -4,10 +4,15 @@ const { JWT_SECRET } = require("../../config/config");
 
 const kullaniciAdiVarmi = async (req, res, next) => {
   try {
+
     let isExistUser = await userModel.ThinkFitForName({
       username: req.body.username,
     });
     if (!isExistUser || !isExistUser.length) {
+
+    const isExistUser = await userModel.ThinkFitForName(req.body.username);
+
+    if (isExistUser && isExistUser.length) {
       next({
         status: 404,
         message: "Girilen isim sistemde mevcut değil",
@@ -20,7 +25,7 @@ const kullaniciAdiVarmi = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-};
+}
 
 const sifreGecerlimi = async (req, res, next) => {
   try {
@@ -80,4 +85,4 @@ module.exports = {
   sifreGecerlimi,
   ayniUserNameVarmiKontrolu,
   protected,
-};
+}
