@@ -13,7 +13,7 @@ const ThinkFitFor = async (filter) => {
   return filteredUsers;
 };
 const ThinkFitForName = async (username) => {
-  let filteredUsers = await db("users").where(username);
+  let filteredUsers = await db("users").where(username).first();
   return filteredUsers;
 };
 const ThinkFitForid = async (user_id) => {
@@ -21,9 +21,15 @@ const ThinkFitForid = async (user_id) => {
   //await ve first birlikte kullanıldığında sorun çıkarabiliyor.
   // sorun çıkarsa filteredUsers[0] dene.
   return filteredUsers;
-};    
+};
 const insertUser = async (user) => {
   await db("users").insert(user);
-  return {message:"Üye olundu"}
+  return { message: "Üye olundu" };
 };
-module.exports = { FindOut, ThinkFitFor, ThinkFitForid, insertUser,ThinkFitForName };
+module.exports = {
+  FindOut,
+  ThinkFitFor,
+  ThinkFitForid,
+  insertUser,
+  ThinkFitForName,
+};

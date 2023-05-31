@@ -1,12 +1,13 @@
 const express = require("express");
+
 const cors = require("cors");
 const helmet = require("helmet");
-const userRouter = require("./users/users-router");
+const userRouter = require("./users/user-router");
 const tableRouter = require("./table/table-router");
-const adminRouter = require("./admin/admin-router");
 const server = express();
 
 server.use(helmet());
+
 server.use(cors());
 server.use(express.json());
 server.use("/api/users", userRouter);
@@ -19,4 +20,5 @@ server.use((err, req, res, next) => {
     stack: err.stack,
   });
 });
+
 module.exports = server;

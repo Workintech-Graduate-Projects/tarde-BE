@@ -1,5 +1,6 @@
-const userModel = require("../users/users-model");
+const userModel = require("./user-model");
 const bcrypt = require("bcryptjs");
+const { JWT_SECRET } = require("../../config/config");
 
 const kullaniciAdiVarmi = async (req, res, next) => {
   try {
@@ -7,11 +8,11 @@ const kullaniciAdiVarmi = async (req, res, next) => {
 
     if (isExistUser && isExistUser.length) {
       next({
-        status: 422,
-        message: "Girilen isim sistemde mevcut",
+        status: 404,
+        message: "Girilen isim sistemde mevcut değil",
       });
     } else {
-      req.body.password = bcrypt.hashSync(req.body.password);
+      req.currentExistUser = isExistUser[0];
       next();
     }
   } catch (error) {
@@ -35,16 +36,17 @@ const sifreGecerlimi = async (req, res, next) => {
   }
 };
 
-const usernameGecerlimi = async (req, res, next) => {
+const ayniUserNameVarmiKontrolu = async (req, res, next) => {
   try {
     let isExistUser = await userModel.ThinkFitForName({
       username: req.body.username,
     });
-    if (isExistUser[0]) {
+    if (isExistUser && isExistUser.length > 0) {
       res
         .status(401)
         .json({ message: "FATAL ERROR : !!!! Bu kullanıcı mevcuttur !!!! " });
     } else {
+      req.body.password = bcrypt.hashSync(req.body.password);
       next();
     }
     //  else {
@@ -54,9 +56,26 @@ const usernameGecerlimi = async (req, res, next) => {
     next(error);
   }
 };
+function protected(req, res, next) {
+  const token = req.headers.authorization;
+  if (token) {
+    jwt.verify(token, JWT_SECRET, (err, decodedJWT) => {
+      if (err) {
+        res.status(401).json({ message: "Token signature dogru değil" });
+      } else {
+        req.decodedJWT = decodedJWT;
+        console.log(req.decodedJWT);
+        next();
+      }
+    });
+  } else {
+    res.status(401).json({ message: "Token provided degil" });
+  }
+}
 
 module.exports = {
   kullaniciAdiVarmi,
   sifreGecerlimi,
-  usernameGecerlimi,
+  ayniUserNameVarmiKontrolu,
+  protected,
 };

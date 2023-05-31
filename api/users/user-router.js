@@ -1,11 +1,12 @@
 const router = require("express").Router();
-const md = require("./users-model");
-const mw = require("./users-middleware");
+const md = require("./user-model");
+const mw = require("./user-middleware");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { JWT_SECRET } = require("../secrets/secretToken");
 
-const generateToken =(user)=> {
+const { JWT_SECRET } = require("../../config/config");
+
+const generateToken = (user) => {
   const payload = {
     subject: user.id,
     name: user.username,
@@ -13,14 +14,14 @@ const generateToken =(user)=> {
   const options = {
     expiresIn: "1d",
   };
-  return jwt.sign(payload, JWT_SECRET,options);
-}
+  return jwt.sign(payload, JWT_SECRET, options);
+};
 
 //KAYIT
 
 router.post(
   "/register",
-  mw.usernameGecerlimi,
+  mw.ayniUserNameVarmiKontrolu,
   mw.sifreGecerlimi,
   async (req, res, next) => {
     try {
@@ -44,8 +45,9 @@ router.post(
   // mw.kullaniciAdiVarmi,
   mw.sifreGecerlimi,
   async (req, res) => {
-    const user = {username:req.body.username,}
-    const registeredUser = await md.ThinkFitForName(req.body.username);
+    const user = { username: req.body.username, password: req.body.password };
+    const registeredUser = await md.ThinkFitForName(user);
+
     if (
       registeredUser &&
       bcrypt.compareSync(user.password, registeredUser.password)
