@@ -4,6 +4,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const userRouter = require("./users/user-router");
 const tableRouter = require("./table/table-router");
+const adminRouter = require("./admin/admin-router");
 const server = express();
 
 server.use(helmet());

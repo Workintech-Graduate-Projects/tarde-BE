@@ -215,6 +215,13 @@ exports.seed = async function (knex) {
       acil_bagi: "anaa",
     },
   ]);
+  
+  await knex("roles").insert([
+    {
+      role_id: 1,
+      role_name: "admin",
+    },
+  ]);
   await knex("users").insert([
     {
       username: "admin",

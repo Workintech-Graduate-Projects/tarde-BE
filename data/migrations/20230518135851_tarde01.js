@@ -125,12 +125,10 @@ exports.up = function (knex) {
       tablo.string("password", 128).notNullable();
       tablo
         .integer("role_id")
-        .unsigned()
-        .notNullable()
         .references("role_id")
         .inTable("roles")
-        .onUpdate("RESTRICT")
-        .onDelete("RESTRICT");
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE");
     });
 };
 /**
