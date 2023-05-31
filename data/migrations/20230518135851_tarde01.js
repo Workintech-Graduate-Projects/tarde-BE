@@ -13,8 +13,8 @@ exports.up = function (knex) {
     .createTable("Merkez", (tablo) => {
       tablo.increments("merkez_id");
       tablo.string("merkez_adi").notNullable();
-      tablo.decimal("enlem")
-      tablo.decimal("boylam")
+      tablo.decimal("enlem");
+      tablo.decimal("boylam");
       tablo.string("merkez_telefon_1");
       tablo.string("merkez_telefon_2");
       tablo
@@ -26,9 +26,10 @@ exports.up = function (knex) {
         .onDelete("CASCADE");
 
       tablo.string("adres");
-      tablo.string("telefon_numarasi")
+      tablo.string("telefon_numarasi");
       tablo.dateTime("hizmet_baslangic_tarihi");
     })
+
     .createTable("Personel", (tablo) => {
       tablo.increments("personel_id");
       tablo.string("personel_adi").notNullable();
@@ -58,7 +59,7 @@ exports.up = function (knex) {
         .onDelete("CASCADE");
       tablo.integer("danisan_sayisi").notNullable();
       // tablo.dateTime("tarih");
-      tablo.string("saha_adres")
+      tablo.string("saha_adres");
     })
     .createTable("Acil_Durum", (tablo) => {
       //sehir_id
@@ -94,7 +95,8 @@ exports.up = function (knex) {
         .inTable("Merkez")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
-    }).createTable("hizmet", (tablo) => {
+    })
+    .createTable("hizmet", (tablo) => {
       tablo.increments("hizmet_id");
       tablo
         .integer("personel_id")
@@ -113,10 +115,22 @@ exports.up = function (knex) {
       tablo.integer("danisan_sayisi").notNullable();
       tablo.dateTime("tarih");
     })
+    .createTable("Roles", (roles) => {
+      roles.increments("role_id");
+      roles.string("role_name", 32).notNullable().unique();
+    })
     .createTable("users", (tablo) => {
       tablo.increments("user_id");
       tablo.string("username", 128).notNullable().unique();
       tablo.string("password", 128).notNullable();
+      tablo
+        .integer("role_id")
+        .unsigned()
+        .notNullable()
+        .references("role_id")
+        .inTable("roles")
+        .onUpdate("RESTRICT")
+        .onDelete("RESTRICT");
     });
 };
 /**
@@ -126,6 +140,7 @@ exports.up = function (knex) {
 exports.down = function (knex) {
   return knex.schema
     .dropTableIfExists("users")
+    .dropTableIfExists("Roles")
     .dropTableIfExists("hizmet")
     .dropTableIfExists("AracSayisi")
     .dropTableIfExists("MerkezPersonel")
