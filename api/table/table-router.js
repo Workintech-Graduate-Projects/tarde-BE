@@ -15,30 +15,6 @@ router.get(
     }
   );
 
-  // Admin merkez tablosu
-router.get(
-    "/admin/merkez/:id",
-    async (req, res, next) => {
-      try {
-        const sehirler = await db("Merkez").where("sehir_id",req.params.id);
-     res.status(200).json(sehirler)
-      } catch (error) {
-        next(error);
-      }
-    }
-  );
-    // Admin merkez tablosu
-router.get(
-    "/admin/personel/",
-    async (req, res, next) => {
-      try {
-        const sehirler = await db("Personel");
-     res.status(200).json(sehirler)
-      } catch (error) {
-        next(error);
-      }
-    }
-  );
 
   // Merkezde bulunan kişiler
 router.get(
