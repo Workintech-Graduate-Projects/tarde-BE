@@ -115,7 +115,7 @@ exports.up = function (knex) {
       tablo.integer("danisan_sayisi").notNullable();
       tablo.dateTime("tarih");
     })
-    .createTable("Roles", (roles) => {
+    .createTable("roles", (roles) => {
       roles.increments("role_id");
       roles.string("role_name", 32).notNullable().unique();
     })
@@ -140,7 +140,7 @@ exports.up = function (knex) {
 exports.down = function (knex) {
   return knex.schema
     .dropTableIfExists("users")
-    .dropTableIfExists("Roles")
+    .dropTableIfExists("roles")
     .dropTableIfExists("hizmet")
     .dropTableIfExists("AracSayisi")
     .dropTableIfExists("MerkezPersonel")
