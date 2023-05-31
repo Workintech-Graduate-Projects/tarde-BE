@@ -1,8 +1,9 @@
 const router = require("express").Router();
-const md = require("./user-model");
-const mw = require("./user-middleware");
+const md = require("../users/user-model");
+const mw = require("../users/user-middleware");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { limitli, onlyRole } = require("../users/user-middleware");
 
 const { JWT_SECRET } = require("../../config/config");
 
@@ -19,13 +20,14 @@ const generateToken = (user) => {
 
 //KAYIT
 
-router.post(
+/* router.post(
   "/register",
   mw.ayniUserNameVarmiKontrolu,
   mw.sifreGecerlimi,
   async (req, res, next) => {
     try {
       const model = {
+        user_id: req.body.user_id,
         username: req.body.username,
         password: bcrypt.hashSync(req.body.password, 10),
       };
@@ -36,7 +38,7 @@ router.post(
       next(error);
     }
   }
-);
+); */
 
 // GİRİŞ
 
@@ -59,6 +61,23 @@ router.post(
     } else {
       res.status(403).json({ message: `Giris yapilamadi` });
     }
+    try {
+      let token = jwt.sign(
+        {
+          subject: req.user.user_id,
+          username: req.user.username,
+          role_id: req.user.role_id,
+        },
+        JWT_SECRET,
+        { expiresIn: "1d" }
+      );
+      res.status(200).json({
+        message: `${req.user.username} yeniden merhaba!`,
+        token: token,
+      });
+    } catch (error) {
+      next(error);
+    }
   }
 );
 //ÇIKIŞ
@@ -77,5 +96,24 @@ router.get("/logout", (req, res) => {
 router.post("/reset_password", (req, res) => {
   res.status(200).json({ message: "password reset calisiyor" });
 });
-
+router.get("/:user_id", limitli, onlyRole("admin"), (req, res, next) => {
+  Users.roleIdyeGoreBul(req.params.user_id)
+    .then((user) => {
+      res.json(user);
+    })
+    .catch(next);
+});
+router.post("/register", mw.roleAdiGecerlimi, async (req, res, next) => {
+  try {
+    const userBeing = {
+      username: req.body.username,
+      password: req.body.password,
+      role_id: req.body.role_id,
+    };
+    const insertedUser = await md.roleEkle(userBeing);
+    res.status(201).json(insertedUser);
+  } catch (error) {
+    next(error);
+  }
+});
 module.exports = router;
