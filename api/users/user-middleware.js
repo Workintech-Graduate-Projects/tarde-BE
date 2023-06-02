@@ -23,7 +23,7 @@ const kullaniciAdiVarmi = async (req, res, next) => {
 
 const sifreGecerlimi = async (req, res, next) => {
   try {
-    let { password } = req.body;
+    const { password } = req.body;
     if (!password || password.length < 3) {
       next({
         status: 422,

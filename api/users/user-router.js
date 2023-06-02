@@ -20,15 +20,16 @@ const generateToken = (user) => {
 
 //KAYIT
 
-/* router.post(
+router.post(
   "/register",
   mw.ayniUserNameVarmiKontrolu,
   mw.sifreGecerlimi,
+  mw.roleAdiGecerlimi,
   async (req, res, next) => {
     try {
       const model = {
-        user_id: req.body.user_id,
         username: req.body.username,
+        role_id: req.body.role_id,
         password: bcrypt.hashSync(req.body.password, 10),
       };
 
@@ -38,21 +39,35 @@ const generateToken = (user) => {
       next(error);
     }
   }
-); */
+);
+/* router.post("/register", mw.roleAdiGecerlimi, async (req, res, next) => {
+  try {
+    const userBeing = {
+      username: req.body.username,
+      role_id: req.body.role_id,
+      password: req.body.password,
+    };
+    const insertedUser = await md.roleEkle(userBeing);
+    res.status(201).json(insertedUser);
+  } catch (error) {
+    next(error);
+  }
+}); */
 
 // GİRİŞ
 
 router.post(
   "/login",
-  // mw.kullaniciAdiVarmi,
+  /*  mw.roleAdiGecerlimi, */
   mw.sifreGecerlimi,
-  async (req, res) => {
-    const user = { username: req.body.username, password: req.body.password };
-    const registeredUser = await md.ThinkFitForName(user);
+  async (req, res, next) => {
+    const user = req.body;
+    const registeredUser = await md.ThinkFitForName(user.username);
+    console.log(registeredUser);
 
     if (
       registeredUser &&
-      bcrypt.compareSync(user.password, registeredUser.password)
+      bcrypt.compare(user.password, registeredUser.password)
     ) {
       const token = generateToken(user);
       res.status(200).json({
@@ -61,25 +76,9 @@ router.post(
     } else {
       res.status(403).json({ message: `Giris yapilamadi` });
     }
-    try {
-      let token = jwt.sign(
-        {
-          subject: req.user.user_id,
-          username: req.user.username,
-          role_id: req.user.role_id,
-        },
-        JWT_SECRET,
-        { expiresIn: "1d" }
-      );
-      res.status(200).json({
-        message: `${req.user.username} yeniden merhaba!`,
-        token: token,
-      });
-    } catch (error) {
-      next(error);
-    }
   }
 );
+
 //ÇIKIŞ
 router.get("/logout", (req, res) => {
   if (req.session) {
@@ -103,17 +102,5 @@ router.get("/:user_id", limitli, onlyRole("admin"), (req, res, next) => {
     })
     .catch(next);
 });
-router.post("/register", mw.roleAdiGecerlimi, async (req, res, next) => {
-  try {
-    const userBeing = {
-      username: req.body.username,
-      password: req.body.password,
-      role_id: req.body.role_id,
-    };
-    const insertedUser = await md.roleEkle(userBeing);
-    res.status(201).json(insertedUser);
-  } catch (error) {
-    next(error);
-  }
-});
+
 module.exports = router;
