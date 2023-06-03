@@ -17,8 +17,10 @@ exports.seed = async function (knex) {
   await knex("roles").truncate();
 
   await knex("Sehir").insert([
-    { sehir_id: 1, sehir_adi: "Hatay/iskenderun" },
-    { sehir_id: 2, sehir_adi: "Adiyaman" },
+    { sehir_id: 1, sehir_adi: "Hatay/iskenderun" ,    enlem: 38.3233075,
+    boylam: 37.7291557,},
+    { sehir_id: 2, sehir_adi: "Adiyaman",  enlem: 38.3233075,
+    boylam: 37.7291557, },
     { sehir_id: 3, sehir_adi: "Gaziantep" },
     { sehir_id: 4, sehir_adi: "Sanliurfa" },
     { sehir_id: 5, sehir_adi: "Kahramanmaras" },
@@ -34,9 +36,7 @@ exports.seed = async function (knex) {
       adres: "test test",
       enlem: 38.3233075,
       boylam: 37.7291557,
-      merkez_telefon_1: 05313011111,
-      merkez_telefon_2: 05313011111,
-      hizmet_baslangic_tarihi: "01.01.2011",
+      telefon_numarasi: 05313011111,
     },
     {
       merkez_id: 2,
@@ -118,9 +118,7 @@ exports.seed = async function (knex) {
       adres: "test test",
       enlem: 38.3233075,
       boylam: 37.7291557,
-      merkez_telefon_1: 05313011111,
-      merkez_telefon_2: 05313011111,
-      hizmet_baslangic_tarihi: "01.01.2011",
+      telefon_numarasi: 05313011111,
     },
     /* { merkez_id: 3, sehir_id: 1, merkez_adi: "Samandag Konteyner Kent" },
     { merkez_id: 4, sehir_id: 1, merkez_adi: "Orhanli Konteyner Kent" },
@@ -149,7 +147,7 @@ exports.seed = async function (knex) {
       sehir_id: 2,
       merkez_adi:
         "Mersin Buyuksehir Belediyesi Konteyner Kent, K12 Çalışma ve Yaşam Ofisi",
-    }, */
+    },
   ]);
   await knex("Personel").insert([
     {

@@ -58,12 +58,11 @@ router.post(
 
 router.post(
   "/login",
-  /*  mw.roleAdiGecerlimi, */
+  // mw.kullaniciAdiVarmi,
   mw.sifreGecerlimi,
-  async (req, res, next) => {
-    const user = req.body;
-    const registeredUser = await md.ThinkFitForName(user.username);
-    console.log(registeredUser);
+  async (req, res) => {
+    const user = { username: req.body.username, password: req.body.password };
+    const registeredUser = await md.ThinkFitForName(user);
 
     if (
       registeredUser &&
