@@ -16,8 +16,10 @@ exports.seed = async function (knex) {
   await knex("AracSayisi").truncate();
 
   await knex("Sehir").insert([
-    { sehir_id: 1, sehir_adi: "Hatay/iskenderun" },
-    { sehir_id: 2, sehir_adi: "Adiyaman" },
+    { sehir_id: 1, sehir_adi: "Hatay/iskenderun" ,    enlem: 38.3233075,
+    boylam: 37.7291557,},
+    { sehir_id: 2, sehir_adi: "Adiyaman",  enlem: 38.3233075,
+    boylam: 37.7291557, },
     { sehir_id: 3, sehir_adi: "Gaziantep" },
     { sehir_id: 4, sehir_adi: "Sanliurfa" },
     { sehir_id: 5, sehir_adi: "Kahramanmaras" },
@@ -31,8 +33,7 @@ exports.seed = async function (knex) {
       sehir_id: 1,
       merkez_adi: "IBB Afet Koordinasyon Merkezi",
       adres: "test test",
-      enlem: 38.3233075,
-      boylam: 37.7291557,
+
       telefon_numarasi: 05313011111,
     },
     {
@@ -40,8 +41,7 @@ exports.seed = async function (knex) {
       sehir_id: 1,
       merkez_adi: "Harbiye/Hidropark Cadırkent",
       adres: "test test",
-      enlem: 38.3233075,
-      boylam: 37.7291557,
+    
       telefon_numarasi: 05313011111,
     },
     { merkez_id: 3, sehir_id: 1, merkez_adi: "Samandag Konteyner Kent" },
@@ -71,6 +71,36 @@ exports.seed = async function (knex) {
       sehir_id: 2,
       merkez_adi:
         "Mersin Buyuksehir Belediyesi Konteyner Kent, K12 Çalışma ve Yaşam Ofisi",
+    },
+    {
+      merkez_id: 13,
+      sehir_id: 4,
+      merkez_adi:
+        "deneme 4",
+    },
+    {
+      merkez_id: 14,
+      sehir_id: 5,
+      merkez_adi:
+        "deneme 5",
+    },
+    {
+      merkez_id: 15,
+      sehir_id: 6,
+      merkez_adi:
+        "deneme 6",
+    },
+    {
+      merkez_id: 16,
+      sehir_id: 7,
+      merkez_adi:
+        "deneme 7",
+    },
+    {
+      merkez_id: 17,
+      sehir_id: 8,
+      merkez_adi:
+        "deneme 8",
     },
   ]);
   await knex("Personel").insert([

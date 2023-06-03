@@ -42,12 +42,11 @@ router.post(
 
 router.post(
   "/login",
-  // mw.kullaniciAdiVarmi,
+  mw.kullaniciAdiVarmi,
   mw.sifreGecerlimi,
   async (req, res) => {
     const user = { username: req.body.username, password: req.body.password };
     const registeredUser = await md.ThinkFitForName(user);
-
     if (
       registeredUser &&
       bcrypt.compareSync(user.password, registeredUser.password)
