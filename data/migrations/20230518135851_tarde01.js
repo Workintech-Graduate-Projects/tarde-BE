@@ -111,7 +111,7 @@ exports.up = function (knex) {
         .inTable("Merkez")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
-      tablo.integer("danisan_sayisi").notNullable();
+      tablo.integer("danisan_sayisi");
       tablo.dateTime("tarih");
     })
     .createTable("roles", (roles) => {
