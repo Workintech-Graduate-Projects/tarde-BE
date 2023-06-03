@@ -24,7 +24,6 @@ exports.up = function (knex) {
         .inTable("Sehir")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
-
       tablo.string("adres");
       tablo.string("telefon_numarasi");
       tablo.dateTime("hizmet_baslangic_tarihi");

@@ -14,6 +14,7 @@ exports.seed = async function (knex) {
   await knex("hizmet").truncate();
   await knex("users").truncate();
   await knex("AracSayisi").truncate();
+  await knex("roles").truncate();
 
   await knex("Sehir").insert([
     { sehir_id: 1, sehir_adi: "Hatay/iskenderun" ,    enlem: 38.3233075,
@@ -33,18 +34,93 @@ exports.seed = async function (knex) {
       sehir_id: 1,
       merkez_adi: "IBB Afet Koordinasyon Merkezi",
       adres: "test test",
-
+      enlem: 38.3233075,
+      boylam: 37.7291557,
       telefon_numarasi: 05313011111,
     },
     {
       merkez_id: 2,
-      sehir_id: 1,
-      merkez_adi: "Harbiye/Hidropark Cadırkent",
+      sehir_id: 2,
+
+      merkez_adi: "Sehir 2 merkezi",
       adres: "test test",
-    
+      enlem: 38.3233075,
+      boylam: 37.7291557,
+      merkez_telefon_1: 05313011111,
+      merkez_telefon_2: 05313011111,
+      hizmet_baslangic_tarihi: "01.01.2011",
+    },
+    {
+      merkez_id: 3,
+      sehir_id: 3,
+
+      merkez_adi: "Sehir 3 merkezi",
+      adres: "test test",
+      enlem: 38.3233075,
+      boylam: 37.7291557,
+      merkez_telefon_1: 05313011111,
+      merkez_telefon_2: 05313011111,
+      hizmet_baslangic_tarihi: "01.01.2011",
+    },
+    {
+      merkez_id: 4,
+      sehir_id: 4,
+
+      merkez_adi: "Sehir 4 merkezi",
+      adres: "test test",
+      enlem: 38.3233075,
+      boylam: 37.7291557,
+      merkez_telefon_1: 05313011111,
+      merkez_telefon_2: 05313011111,
+      hizmet_baslangic_tarihi: "01.01.2011",
+    },
+    {
+      merkez_id: 5,
+      sehir_id: 5,
+
+      merkez_adi: "Sehir 5 merkezi",
+      adres: "test test",
+      enlem: 38.3233075,
+      boylam: 37.7291557,
+      merkez_telefon_1: 05313011111,
+      merkez_telefon_2: 05313011111,
+      hizmet_baslangic_tarihi: "01.01.2011",
+    },
+    {
+      merkez_id: 6,
+      sehir_id: 6,
+
+      merkez_adi: "Sehir 6 merkezi",
+      adres: "test test",
+      enlem: 38.3233075,
+      boylam: 37.7291557,
+      merkez_telefon_1: 05313011111,
+      merkez_telefon_2: 05313011111,
+      hizmet_baslangic_tarihi: "01.01.2011",
+    },
+    {
+      merkez_id: 7,
+      sehir_id: 7,
+
+      merkez_adi: "Sehir 7 merkezi",
+      adres: "test test",
+      enlem: 38.3233075,
+      boylam: 37.7291557,
+      merkez_telefon_1: 05313011111,
+      merkez_telefon_2: 05313011111,
+      hizmet_baslangic_tarihi: "01.01.2011",
+    },
+    {
+      merkez_id: 8,
+      sehir_id: 8,
+
+      merkez_adi: "Sehir 8 merkezi",
+      adres: "test test",
+      enlem: 38.3233075,
+      boylam: 37.7291557,
       telefon_numarasi: 05313011111,
     },
-    { merkez_id: 3, sehir_id: 1, merkez_adi: "Samandag Konteyner Kent" },
+    /* { merkez_id: 3, sehir_id: 1, merkez_adi: "Samandag Konteyner Kent" },
     { merkez_id: 4, sehir_id: 1, merkez_adi: "Orhanli Konteyner Kent" },
     {
       merkez_id: 5,
@@ -72,36 +148,6 @@ exports.seed = async function (knex) {
       merkez_adi:
         "Mersin Buyuksehir Belediyesi Konteyner Kent, K12 Çalışma ve Yaşam Ofisi",
     },
-    {
-      merkez_id: 13,
-      sehir_id: 4,
-      merkez_adi:
-        "deneme 4",
-    },
-    {
-      merkez_id: 14,
-      sehir_id: 5,
-      merkez_adi:
-        "deneme 5",
-    },
-    {
-      merkez_id: 15,
-      sehir_id: 6,
-      merkez_adi:
-        "deneme 6",
-    },
-    {
-      merkez_id: 16,
-      sehir_id: 7,
-      merkez_adi:
-        "deneme 7",
-    },
-    {
-      merkez_id: 17,
-      sehir_id: 8,
-      merkez_adi:
-        "deneme 8",
-    },
   ]);
   await knex("Personel").insert([
     {
@@ -109,8 +155,10 @@ exports.seed = async function (knex) {
       personel_adi: "Sergen",
       personel_soyadi: "Tut",
       personel_telefon_1: "058656",
+      personel_telefon_2: "098765432",
       personel_tc: "05615",
       personel_kan_grubu: "Brh+",
+      personel_adres: "adresadres",
       personel_calisma_durumu: false,
     },
     {
@@ -118,11 +166,13 @@ exports.seed = async function (knex) {
       personel_adi: "Ebru ",
       personel_soyadi: "Akkoyun",
       personel_telefon_1: "058652",
+      personel_telefon_2: "098765432",
       personel_tc: "062255",
       personel_kan_grubu: "0rh+",
+      personel_adres: "adresadres",
       personel_calisma_durumu: true,
     },
-    { personel_id: 3, personel_adi: "Tilbe Yigit" },
+    /*     { personel_id: 3, personel_adi: "Tilbe Yigit" },
     { personel_id: 4, personel_adi: "Ayse Baykara" },
     { personel_id: 5, personel_adi: "Fatma Boz" },
     { personel_id: 6, personel_adi: "Feyza Nur Ak" },
@@ -150,7 +200,7 @@ exports.seed = async function (knex) {
     { personel_id: 25, personel_adi: "Derya Genc" },
     { personel_id: 26, personel_adi: "Sevgi Tarhan" },
     { personel_id: 27, personel_adi: "Şevval Çoban" },
-    { personel_id: 28, personel_adi: "Gizem Yilmaz" },
+    { personel_id: 28, personel_adi: "Gizem Yilmaz" }, */
   ]);
 
   await knex("hizmet").insert([
@@ -165,7 +215,7 @@ exports.seed = async function (knex) {
       danisan_sayisi: 5,
       saha_adres: "zıttır sokkak no 5",
     },
-    {
+    /*     {
       merkez_personel_id: 2,
       personel_id: 2,
       merkez_id: 3,
@@ -185,7 +235,7 @@ exports.seed = async function (knex) {
       merkez_id: 3,
       danisan_sayisi: 2,
       saha_adres: "zıttır sokkak no 5",
-    },
+    }, */
 
     //tarih formatı yeniden ele alınabilir
   ]);
@@ -211,7 +261,7 @@ exports.seed = async function (knex) {
       merkez_id: 1,
       is_birligi_kurum_adi: "Suna'nin Kizlari",
     },
-    { Merkez_is_birligi_id: 5, merkez_id: 1, is_birligi_kurum_adi: "MAYA" },
+    /* { Merkez_is_birligi_id: 5, merkez_id: 1, is_birligi_kurum_adi: "MAYA" },
     { Merkez_is_birligi_id: 6, merkez_id: 1, is_birligi_kurum_adi: "ACEV" },
     { Merkez_is_birligi_id: 7, merkez_id: 1, is_birligi_kurum_adi: "İBB" },
     { Merkez_is_birligi_id: 8, merkez_id: 1, is_birligi_kurum_adi: "MSF" },
@@ -225,7 +275,7 @@ exports.seed = async function (knex) {
       Merkez_is_birligi_id: 11,
       merkez_id: 1,
       is_birligi_kurum_adi: "World Human Relief ",
-    },
+    }, */
   ]);
   await knex("AracSayisi").insert([
     {
@@ -238,20 +288,20 @@ exports.seed = async function (knex) {
   await knex("Acil_Durum").insert([
     {
       acil_durum_id: 1,
-      acil_telefon: 05441563,
+      acil_telefon: 05441563344,
       personel_id: 1,
       acil_isim: "fatma",
       acil_soyisim: "fsasda",
       acil_bagi: "anaa",
     },
   ]);
-  
   await knex("roles").insert([
     {
       role_id: 1,
       role_name: "admin",
     },
   ]);
+
   await knex("users").insert([
     {
       username: "admin",

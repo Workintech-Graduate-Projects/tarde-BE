@@ -1,3 +1,5 @@
+require("dotenv").config();
+const jwtSecret = process.env.JWT_SECRET || "shh";
 module.exports = {
-  JWT_SECRET: process.env.JWT_SECRET || "bir password koyulacak",
+  JWT_SECRET: jwtSecret,
 };

@@ -1,8 +1,9 @@
 const router = require("express").Router();
-const md = require("./user-model");
-const mw = require("./user-middleware");
+const md = require("../users/user-model");
+const mw = require("../users/user-middleware");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { limitli, onlyRole } = require("../users/user-middleware");
 
 const { JWT_SECRET } = require("../../config/config");
 
@@ -23,10 +24,12 @@ router.post(
   "/register",
   mw.ayniUserNameVarmiKontrolu,
   mw.sifreGecerlimi,
+  mw.roleAdiGecerlimi,
   async (req, res, next) => {
     try {
       const model = {
         username: req.body.username,
+        role_id: req.body.role_id,
         password: bcrypt.hashSync(req.body.password, 10),
       };
 
@@ -37,19 +40,33 @@ router.post(
     }
   }
 );
+/* router.post("/register", mw.roleAdiGecerlimi, async (req, res, next) => {
+  try {
+    const userBeing = {
+      username: req.body.username,
+      role_id: req.body.role_id,
+      password: req.body.password,
+    };
+    const insertedUser = await md.roleEkle(userBeing);
+    res.status(201).json(insertedUser);
+  } catch (error) {
+    next(error);
+  }
+}); */
 
 // GİRİŞ
 
 router.post(
   "/login",
-  mw.kullaniciAdiVarmi,
+  // mw.kullaniciAdiVarmi,
   mw.sifreGecerlimi,
   async (req, res) => {
     const user = { username: req.body.username, password: req.body.password };
     const registeredUser = await md.ThinkFitForName(user);
+
     if (
       registeredUser &&
-      bcrypt.compareSync(user.password, registeredUser.password)
+      bcrypt.compare(user.password, registeredUser.password)
     ) {
       const token = generateToken(user);
       res.status(200).json({
@@ -60,6 +77,7 @@ router.post(
     }
   }
 );
+
 //ÇIKIŞ
 router.get("/logout", (req, res) => {
   if (req.session) {
@@ -75,6 +93,13 @@ router.get("/logout", (req, res) => {
 
 router.post("/reset_password", (req, res) => {
   res.status(200).json({ message: "password reset calisiyor" });
+});
+router.get("/:user_id", limitli, onlyRole("admin"), (req, res, next) => {
+  Users.roleIdyeGoreBul(req.params.user_id)
+    .then((user) => {
+      res.json(user);
+    })
+    .catch(next);
 });
 
 module.exports = router;
