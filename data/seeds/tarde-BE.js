@@ -10,6 +10,7 @@ exports.seed = async function (knex) {
   await knex("Acil_Durum").truncate();
   await knex("Personel").truncate();
   await knex("Merkez").truncate();
+  await knex("MerkezPersonel").truncate();
   await knex("Sehir").truncate();
   await knex("hizmet").truncate();
   await knex("users").truncate();
@@ -17,8 +18,18 @@ exports.seed = async function (knex) {
   await knex("roles").truncate();
 
   await knex("Sehir").insert([
-    { sehir_id: 1, sehir_adi: "Hatay/iskenderun" },
-    { sehir_id: 2, sehir_adi: "Adiyaman" },
+    {
+      sehir_id: 1,
+      sehir_adi: "Hatay/iskenderun",
+      enlem: 38.3233075,
+      boylam: 37.7291557,
+    },
+    {
+      sehir_id: 2,
+      sehir_adi: "Adiyaman",
+      enlem: 38.3233075,
+      boylam: 37.7291557,
+    },
     { sehir_id: 3, sehir_adi: "Gaziantep" },
     { sehir_id: 4, sehir_adi: "Sanliurfa" },
     { sehir_id: 5, sehir_adi: "Kahramanmaras" },
@@ -32,11 +43,7 @@ exports.seed = async function (knex) {
       sehir_id: 1,
       merkez_adi: "IBB Afet Koordinasyon Merkezi",
       adres: "test test",
-      enlem: 38.3233075,
-      boylam: 37.7291557,
-      merkez_telefon_1: 05313011111,
-      merkez_telefon_2: 05313011111,
-      hizmet_baslangic_tarihi: "01.01.2011",
+      telefon_numarasi: 05313011111,
     },
     {
       merkez_id: 2,
@@ -44,8 +51,6 @@ exports.seed = async function (knex) {
 
       merkez_adi: "Sehir 2 merkezi",
       adres: "test test",
-      enlem: 38.3233075,
-      boylam: 37.7291557,
       merkez_telefon_1: 05313011111,
       merkez_telefon_2: 05313011111,
       hizmet_baslangic_tarihi: "01.01.2011",
@@ -56,8 +61,6 @@ exports.seed = async function (knex) {
 
       merkez_adi: "Sehir 3 merkezi",
       adres: "test test",
-      enlem: 38.3233075,
-      boylam: 37.7291557,
       merkez_telefon_1: 05313011111,
       merkez_telefon_2: 05313011111,
       hizmet_baslangic_tarihi: "01.01.2011",
@@ -68,8 +71,6 @@ exports.seed = async function (knex) {
 
       merkez_adi: "Sehir 4 merkezi",
       adres: "test test",
-      enlem: 38.3233075,
-      boylam: 37.7291557,
       merkez_telefon_1: 05313011111,
       merkez_telefon_2: 05313011111,
       hizmet_baslangic_tarihi: "01.01.2011",
@@ -80,8 +81,7 @@ exports.seed = async function (knex) {
 
       merkez_adi: "Sehir 5 merkezi",
       adres: "test test",
-      enlem: 38.3233075,
-      boylam: 37.7291557,
+
       merkez_telefon_1: 05313011111,
       merkez_telefon_2: 05313011111,
       hizmet_baslangic_tarihi: "01.01.2011",
@@ -92,8 +92,6 @@ exports.seed = async function (knex) {
 
       merkez_adi: "Sehir 6 merkezi",
       adres: "test test",
-      enlem: 38.3233075,
-      boylam: 37.7291557,
       merkez_telefon_1: 05313011111,
       merkez_telefon_2: 05313011111,
       hizmet_baslangic_tarihi: "01.01.2011",
@@ -104,8 +102,6 @@ exports.seed = async function (knex) {
 
       merkez_adi: "Sehir 7 merkezi",
       adres: "test test",
-      enlem: 38.3233075,
-      boylam: 37.7291557,
       merkez_telefon_1: 05313011111,
       merkez_telefon_2: 05313011111,
       hizmet_baslangic_tarihi: "01.01.2011",
@@ -116,11 +112,7 @@ exports.seed = async function (knex) {
 
       merkez_adi: "Sehir 8 merkezi",
       adres: "test test",
-      enlem: 38.3233075,
-      boylam: 37.7291557,
-      merkez_telefon_1: 05313011111,
-      merkez_telefon_2: 05313011111,
-      hizmet_baslangic_tarihi: "01.01.2011",
+      telefon_numarasi: 05313011111,
     },
     /* { merkez_id: 3, sehir_id: 1, merkez_adi: "Samandag Konteyner Kent" },
     { merkez_id: 4, sehir_id: 1, merkez_adi: "Orhanli Konteyner Kent" },
@@ -149,7 +141,7 @@ exports.seed = async function (knex) {
       sehir_id: 2,
       merkez_adi:
         "Mersin Buyuksehir Belediyesi Konteyner Kent, K12 Çalışma ve Yaşam Ofisi",
-    }, */
+    },*/
   ]);
   await knex("Personel").insert([
     {
@@ -174,7 +166,7 @@ exports.seed = async function (knex) {
       personel_adres: "adresadres",
       personel_calisma_durumu: true,
     },
-    /*     { personel_id: 3, personel_adi: "Tilbe Yigit" },
+        { personel_id: 3, personel_adi: "Tilbe Yigit" },
     { personel_id: 4, personel_adi: "Ayse Baykara" },
     { personel_id: 5, personel_adi: "Fatma Boz" },
     { personel_id: 6, personel_adi: "Feyza Nur Ak" },
@@ -202,13 +194,13 @@ exports.seed = async function (knex) {
     { personel_id: 25, personel_adi: "Derya Genc" },
     { personel_id: 26, personel_adi: "Sevgi Tarhan" },
     { personel_id: 27, personel_adi: "Şevval Çoban" },
-    { personel_id: 28, personel_adi: "Gizem Yilmaz" }, */
+    { personel_id: 28, personel_adi: "Gizem Yilmaz" }, 
   ]);
 
   await knex("hizmet").insert([
-    { merkez_id: 1, personel_id: 1, danisan_sayisi: 32, tarih: "01.02.2023" },
+    { merkez_id: 1,personel_id: 1},
     //tarih formatı yeniden ele alınabilir
-  ]);
+  ]); 
   await knex("MerkezPersonel").insert([
     {
       merkez_personel_id: 1,
@@ -217,7 +209,7 @@ exports.seed = async function (knex) {
       danisan_sayisi: 5,
       saha_adres: "zıttır sokkak no 5",
     },
-    /*     {
+       {
       merkez_personel_id: 2,
       personel_id: 2,
       merkez_id: 3,
@@ -237,7 +229,7 @@ exports.seed = async function (knex) {
       merkez_id: 3,
       danisan_sayisi: 2,
       saha_adres: "zıttır sokkak no 5",
-    }, */
+    }, 
 
     //tarih formatı yeniden ele alınabilir
   ]);
