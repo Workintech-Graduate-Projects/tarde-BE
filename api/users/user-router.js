@@ -71,14 +71,26 @@ router.post(
     ) {
       const token = generateToken(user);
       res.status(200).json({
-        message: `Welcome ${registeredUser.username}, token:${token}`,
+        token: `${token}`,
       });
     } else {
       res.status(403).json({ message: `Giris yapilamadi` });
     }
+    try {
+      let token = jwt.sign(
+        {
+          subject: req.user.user_id,
+          username: req.user.username,
+          role_id: req.user.role_id,
+        },
+        JWT_SECRET,
+        { expiresIn: "1d" }
+      );
+    } catch (error) {
+      next(error);
+    }
   }
 );
-
 //ÇIKIŞ
 router.get("/logout", (req, res) => {
   if (req.session) {
