@@ -37,8 +37,7 @@ const subquerySum= db("MerkezPersonel as mp").leftJoin("Merkez as M","M.merkez_i
     );
 };
 const getCoordinates = async () => {
-  return db("Merkez as M")
-    .select("merkez_adi","enlem", "boylam");
+  return db("Sehir as s");
 };
 const getByPersonel = async (merkez_id) => {
   return db("MerkezPersonel as mp")
