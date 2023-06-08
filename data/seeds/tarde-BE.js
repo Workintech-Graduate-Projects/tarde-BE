@@ -45,103 +45,65 @@ exports.seed = async function (knex) {
       adres: "test test",
       telefon_numarasi: 05313011111,
     },
-    {
-      merkez_id: 2,
-      sehir_id: 2,
 
-      merkez_adi: "Sehir 2 merkezi",
-      adres: "test test",
-      merkez_telefon_1: 05313011111,
-      merkez_telefon_2: 05313011111,
-      hizmet_baslangic_tarihi: "01.01.2011",
-    },
-    {
-      merkez_id: 3,
-      sehir_id: 3,
-
-      merkez_adi: "Sehir 3 merkezi",
-      adres: "test test",
-      merkez_telefon_1: 05313011111,
-      merkez_telefon_2: 05313011111,
-      hizmet_baslangic_tarihi: "01.01.2011",
-    },
+    { merkez_id: 2, sehir_id: 1, merkez_adi: "Samandag Konteyner Kent" },
+    { merkez_id: 3, sehir_id: 1, merkez_adi: "Orhanli Konteyner Kent" },
     {
       merkez_id: 4,
-      sehir_id: 4,
-
-      merkez_adi: "Sehir 4 merkezi",
-      adres: "test test",
-      merkez_telefon_1: 05313011111,
-      merkez_telefon_2: 05313011111,
-      hizmet_baslangic_tarihi: "01.01.2011",
-    },
-    {
-      merkez_id: 5,
-      sehir_id: 5,
-
-      merkez_adi: "Sehir 5 merkezi",
-      adres: "test test",
-
-      merkez_telefon_1: 05313011111,
-      merkez_telefon_2: 05313011111,
-      hizmet_baslangic_tarihi: "01.01.2011",
-    },
-    {
-      merkez_id: 6,
-      sehir_id: 6,
-
-      merkez_adi: "Sehir 6 merkezi",
-      adres: "test test",
-      merkez_telefon_1: 05313011111,
-      merkez_telefon_2: 05313011111,
-      hizmet_baslangic_tarihi: "01.01.2011",
-    },
-    {
-      merkez_id: 7,
-      sehir_id: 7,
-
-      merkez_adi: "Sehir 7 merkezi",
-      adres: "test test",
-      merkez_telefon_1: 05313011111,
-      merkez_telefon_2: 05313011111,
-      hizmet_baslangic_tarihi: "01.01.2011",
-    },
-    {
-      merkez_id: 8,
-      sehir_id: 8,
-
-      merkez_adi: "Sehir 8 merkezi",
-      adres: "test test",
-      telefon_numarasi: 05313011111,
-    },
-    /* { merkez_id: 3, sehir_id: 1, merkez_adi: "Samandag Konteyner Kent" },
-    { merkez_id: 4, sehir_id: 1, merkez_adi: "Orhanli Konteyner Kent" },
-    {
-      merkez_id: 5,
       sehir_id: 3,
       merkez_adi: "Gorusme Konteyneri - Nurdagi 1 Konteyner Kent",
     },
     {
-      merkez_id: 6,
+      merkez_id: 5,
       sehir_id: 3,
       merkez_adi:
         "Mobil Ekip - TOKI Konteyner Egitim Kampusu, Nurdagi B-1 ve C-1",
     },
-    { merkez_id: 7, sehir_id: 3, merkez_adi: "Mobil Ekip - Ahbap Okullari" },
-    { merkez_id: 8, sehir_id: 3, merkez_adi: "Mobil Ekip - Nurdagi 2" },
-    { merkez_id: 9, sehir_id: 3, merkez_adi: "Mobil Ekip - Fatih Mahallesi" },
-    { merkez_id: 10, sehir_id: 3, merkez_adi: "Mobil Ekip - Yeni Mahalle" },
+    { merkez_id: 6, sehir_id: 3, merkez_adi: "Mobil Ekip - Ahbap Okullari" },
+    { merkez_id: 7, sehir_id: 3, merkez_adi: "Mobil Ekip - Nurdagi 2" },
+    { merkez_id: 8, sehir_id: 3, merkez_adi: "Mobil Ekip - Fatih Mahallesi" },
+    { merkez_id: 9, sehir_id: 3, merkez_adi: "Mobil Ekip - Yeni Mahalle" },
     {
-      merkez_id: 11,
+      merkez_id: 10,
       sehir_id: 3,
       merkez_adi: "Mobil Ekip - Kurudere Mahallesi",
     },
     {
-      merkez_id: 12,
+      merkez_id: 11,
       sehir_id: 2,
       merkez_adi:
-        "Mersin Buyuksehir Belediyesi Konteyner Kent, K12 Çalışma ve Yaşam Ofisi",
-    },*/
+        "Adıyaman Merkez",
+    },
+    {
+    
+      sehir_id: 4,
+      merkez_adi:
+        "Şanlıurfa Merkez",
+    },
+    {
+    
+      sehir_id: 5,
+      merkez_adi:
+        "Kahramanmaraş Merkez",
+    },
+    {
+    
+      sehir_id: 6,
+      merkez_adi:
+        "Osmaniye Merkez",
+    },
+    {
+    
+      sehir_id: 7,
+      merkez_adi:
+        "Malatya Merkez",
+    },
+    {
+    
+      sehir_id: 8,
+      merkez_adi:
+        "Diyarbakır Merkez",
+    },
   ]);
   await knex("Personel").insert([
     {
@@ -225,11 +187,25 @@ exports.seed = async function (knex) {
     },
     {
       merkez_personel_id: 4,
-      personel_id: 4,
+      personel_id: 7,
       merkez_id: 3,
       danisan_sayisi: 2,
       saha_adres: "zıttır sokkak no 5",
     },
+    {
+      merkez_personel_id: 5,
+      personel_id: 6,
+      merkez_id: 3,
+      danisan_sayisi: 2,
+      saha_adres: "zıttır sokkak no 5",
+    },
+    {
+      merkez_personel_id: 6,
+      personel_id: 4,
+      merkez_id: 3,
+      danisan_sayisi: 2,
+      saha_adres: "zıttır sokkak no 5",
+    }, 
 
     //tarih formatı yeniden ele alınabilir
   ]);
@@ -237,46 +213,64 @@ exports.seed = async function (knex) {
   await knex("MerkezIsBirligi").insert([
     {
       Merkez_is_birligi_id: 1,
-      merkez_id: 1,
+      sehir_id: 1,
       is_birligi_kurum_adi: "İzmit Belediyesi",
     },
     {
       Merkez_is_birligi_id: 2,
-      merkez_id: 1,
+      sehir_id: 1,
       is_birligi_kurum_adi: "Mor Yerleske",
     },
     {
       Merkez_is_birligi_id: 3,
-      merkez_id: 1,
+      sehir_id: 1,
       is_birligi_kurum_adi: "Samandag Belediyesi",
     },
     {
       Merkez_is_birligi_id: 4,
-      merkez_id: 1,
+      sehir_id: 1,
       is_birligi_kurum_adi: "Suna'nin Kizlari",
     },
-    /* { Merkez_is_birligi_id: 5, merkez_id: 1, is_birligi_kurum_adi: "MAYA" },
-    { Merkez_is_birligi_id: 6, merkez_id: 1, is_birligi_kurum_adi: "ACEV" },
-    { Merkez_is_birligi_id: 7, merkez_id: 1, is_birligi_kurum_adi: "İBB" },
-    { Merkez_is_birligi_id: 8, merkez_id: 1, is_birligi_kurum_adi: "MSF" },
-    { Merkez_is_birligi_id: 9, merkez_id: 1, is_birligi_kurum_adi: "Unicef" },
+    { Merkez_is_birligi_id: 5, sehir_id: 2, is_birligi_kurum_adi: "MAYA" },
+    { Merkez_is_birligi_id: 6, sehir_id: 3, is_birligi_kurum_adi: "ACEV" },
+    { Merkez_is_birligi_id: 7, sehir_id: 4, is_birligi_kurum_adi: "İBB" },
+    { Merkez_is_birligi_id: 8, sehir_id: 5, is_birligi_kurum_adi: "MSF" },
+    { Merkez_is_birligi_id: 9, sehir_id: 6, is_birligi_kurum_adi: "Unicef" },
     {
       Merkez_is_birligi_id: 10,
-      merkez_id: 1,
+      sehir_id: 7,
       is_birligi_kurum_adi: "Hayata Destek Dernegi",
     },
     {
       Merkez_is_birligi_id: 11,
-      merkez_id: 1,
+      sehir_id: 1,
       is_birligi_kurum_adi: "World Human Relief ",
-    }, */
+    },
   ]);
   await knex("AracSayisi").insert([
     {
-      arac_sayisi_id: 1,
+     
       merkez_id: 1,
-      arac_adi: "binek",
-      arac_sayisi: 1,
+      binekarac_sayisi: 4,
+      gezicikaravan_sayisi: 1,
+    },
+    {
+     
+      merkez_id: 2,
+      binekarac_sayisi:3,
+      gezicikaravan_sayisi: 2,
+    },
+    {
+     
+      merkez_id: 3,
+      binekarac_sayisi:5,
+      gezicikaravan_sayisi: 1,
+    },
+    {
+     
+      merkez_id: 4,
+      binekarac_sayisi:5,
+      gezicikaravan_sayisi: 1,
     },
   ]);
   await knex("Acil_Durum").insert([

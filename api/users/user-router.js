@@ -58,9 +58,27 @@ router.post(
 
 /* router.post(
   "/login",
-  // mw.kullaniciAdiVarmi,
+  mw.kullaniciAdiVarmi,
   mw.sifreGecerlimi,
   async (req, res, next) => {
+<<<<<<< HEAD
+    try {
+      const { password ,username} = req.body;
+      const isTrue = await bcrypt.compare(password, req.currentExistUser);
+      console.log(isTrue);
+      console.log(req.currentExistUser);
+
+      if (req.currentExistUser) {
+        const token = generateToken(req.body);
+        res.status(200).json({
+          message: `Welcome ${username}, token:${token}`,
+        });
+      } else {
+        res.status(403).json({ message: `Geçersiz Şifre` });
+      }
+    } catch (error) {
+      next(error);
+=======
     const user = req.body;
     const registeredUser = await md.ThinkFitForName(user);
 
@@ -112,6 +130,7 @@ router.post(
       });
     } else {
       res.status(403).json({ message: `Giris yapilamadi` });
+>>>>>>> 245b2b41ced72026ca203891cba8feaad768818e
     }
   }
 );

@@ -5,16 +5,16 @@ const { JWT_SECRET } = require("../../config/config");
 
 const kullaniciAdiVarmi = async (req, res, next) => {
   try {
-    const isExistUser = await userModel.ThinkFitForName(req.body.username);
-
-    if (isExistUser && isExistUser.length) {
+    const isExistUser = await userModel.ThinkFitForName(req.body);
+    console.log(isExistUser)
+    if (isExistUser) {
+      req.currentExistUser = isExistUser.password;
+      next();
+    } else {
       next({
         status: 404,
         message: "Girilen isim sistemde mevcut değil",
       });
-    } else {
-      req.currentExistUser = isExistUser[0];
-      next();
     }
   } catch (error) {
     next(error);
