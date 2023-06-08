@@ -13,11 +13,9 @@ const ThinkFitFor = async (filter) => {
   return filteredUsers;
 };
 const ThinkFitForName = async (username) => {
-<<<<<<< HEAD
-  let filteredUsers = await db("users").where("username",username.username);
-=======
+
   let filteredUsers = await db("users").where("username", username.username);
->>>>>>> 245b2b41ced72026ca203891cba8feaad768818e
+
   return filteredUsers[0];
 };
 const ThinkFitForid = async (user_id) => {

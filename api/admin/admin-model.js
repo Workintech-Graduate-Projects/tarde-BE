@@ -77,8 +77,4 @@ const insertMerkez = async (merkez_id) => {
     );
 };
 
-<<<<<<< HEAD
-module.exports = {  getAll, getById, getByPersonel ,getByAdminId};
-=======
 module.exports = { getAll, getById, getByPersonel, getByAdminId };
->>>>>>> 245b2b41ced72026ca203891cba8feaad768818e
