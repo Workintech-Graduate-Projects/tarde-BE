@@ -13,8 +13,8 @@ const ThinkFitFor = async (filter) => {
   return filteredUsers;
 };
 const ThinkFitForName = async (username) => {
-  let filteredUsers = await db("users").where(username).first();
-  return filteredUsers;
+  let filteredUsers = await db("users").where("username", username.username);
+  return filteredUsers[0];
 };
 const ThinkFitForid = async (user_id) => {
   let filteredUsers = await db("users").where("user_id", user_id).first();

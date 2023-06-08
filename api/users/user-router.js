@@ -56,12 +56,12 @@ router.post(
 
 // GİRİŞ
 
-router.post(
+/* router.post(
   "/login",
   // mw.kullaniciAdiVarmi,
   mw.sifreGecerlimi,
-  async (req, res) => {
-    const user = { username: req.body.username, password: req.body.password };
+  async (req, res, next) => {
+    const user = req.body;
     const registeredUser = await md.ThinkFitForName(user);
 
     if (
@@ -89,9 +89,35 @@ router.post(
       next(error);
     }
   }
+); */
+
+router.post(
+  "/login",
+  // mw.kullaniciAdiVarmi,
+  mw.sifreGecerlimi,
+  async (req, res) => {
+    const user = req.body;
+    const registeredUser = await md.ThinkFitForName(user);
+    const isTrue = await bcrypt.compare(
+      String(user.password),
+      String(registeredUser.password)
+    );
+    /*     console.log(user.password);
+    console.log(registeredUser.password); */
+    if (registeredUser && isTrue) {
+      const token = generateToken(user);
+      res.status(200).json({
+        message: `Welcome ${registeredUser.username}`,
+        token: `${token}`,
+      });
+    } else {
+      res.status(403).json({ message: `Giris yapilamadi` });
+    }
+  }
 );
+
 //ÇIKIŞ
-router.get("/logout", (req, res) => {
+router.get("/logout", (req, res, next) => {
   if (req.session) {
     req.session.destroy((err) => {
       if (err) {
@@ -103,7 +129,7 @@ router.get("/logout", (req, res) => {
   }
 });
 
-router.post("/reset_password", (req, res) => {
+router.post("/reset_password", (req, res, next) => {
   res.status(200).json({ message: "password reset calisiyor" });
 });
 router.get("/:user_id", limitli, onlyRole("admin"), (req, res, next) => {
