@@ -67,4 +67,4 @@ const insertMerkez = async (merkez_id) => {
     );
 };
 
-module.exports = { getCoordinates, getAll, getById, getByPersonel ,getByAdminId};
+module.exports = {  getAll, getById, getByPersonel ,getByAdminId};
