@@ -56,11 +56,12 @@ router.post(
 
 // GİRİŞ
 
-router.post(
+/* router.post(
   "/login",
   mw.kullaniciAdiVarmi,
   mw.sifreGecerlimi,
   async (req, res, next) => {
+<<<<<<< HEAD
     try {
       const { password ,username} = req.body;
       const isTrue = await bcrypt.compare(password, req.currentExistUser);
@@ -77,12 +78,65 @@ router.post(
       }
     } catch (error) {
       next(error);
+=======
+    const user = req.body;
+    const registeredUser = await md.ThinkFitForName(user);
+
+    if (
+      registeredUser &&
+      bcrypt.compare(user.password, registeredUser.password)
+    ) {
+      const token = generateToken(user);
+      res.status(200).json({
+        token: `${token}`,
+      });
+    } else {
+      res.status(403).json({ message: `Giris yapilamadi` });
+    }
+    try {
+      let token = jwt.sign(
+        {
+          subject: req.user.user_id,
+          username: req.user.username,
+          role_id: req.user.role_id,
+        },
+        JWT_SECRET,
+        { expiresIn: "1d" }
+      );
+    } catch (error) {
+      next(error);
+    }
+  }
+); */
+
+router.post(
+  "/login",
+  // mw.kullaniciAdiVarmi,
+  mw.sifreGecerlimi,
+  async (req, res) => {
+    const user = req.body;
+    const registeredUser = await md.ThinkFitForName(user);
+    const isTrue = await bcrypt.compare(
+      String(user.password),
+      String(registeredUser.password)
+    );
+    /*     console.log(user.password);
+    console.log(registeredUser.password); */
+    if (registeredUser && isTrue) {
+      const token = generateToken(user);
+      res.status(200).json({
+        message: `Welcome ${registeredUser.username}`,
+        token: `${token}`,
+      });
+    } else {
+      res.status(403).json({ message: `Giris yapilamadi` });
+>>>>>>> 245b2b41ced72026ca203891cba8feaad768818e
     }
   }
 );
 
 //ÇIKIŞ
-router.get("/logout", (req, res) => {
+router.get("/logout", (req, res, next) => {
   if (req.session) {
     req.session.destroy((err) => {
       if (err) {
@@ -94,7 +148,7 @@ router.get("/logout", (req, res) => {
   }
 });
 
-router.post("/reset_password", (req, res) => {
+router.post("/reset_password", (req, res, next) => {
   res.status(200).json({ message: "password reset calisiyor" });
 });
 router.get("/:user_id", limitli, onlyRole("admin"), (req, res, next) => {

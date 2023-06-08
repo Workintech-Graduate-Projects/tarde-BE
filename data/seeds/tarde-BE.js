@@ -205,35 +205,7 @@ exports.seed = async function (knex) {
       merkez_id: 3,
       danisan_sayisi: 2,
       saha_adres: "zıttır sokkak no 5",
-    },
-    {
-    
-      personel_id: 4,
-      merkez_id: 1,
-      danisan_sayisi: 2,
-      saha_adres: "zıttır sokkak no 5",
-    },
-    {
-    
-      personel_id: 8,
-      merkez_id: 4,
-      danisan_sayisi: 2,
-      saha_adres: "zıttır sokkak no 5",
-    },
-    {
-    
-      personel_id: 11,
-      merkez_id: 6,
-      danisan_sayisi: 2,
-      saha_adres: "zıttır sokkak no 5",
-    },
-    {
-    
-      personel_id: 12,
-      merkez_id: 7,
-      danisan_sayisi: 2,
-      saha_adres: "zıttır sokkak no 5",
-    },
+    }, 
 
     //tarih formatı yeniden ele alınabilir
   ]);
