@@ -160,7 +160,9 @@ exports.seed = async function (knex) {
   ]);
 
   await knex("hizmet").insert([
-    { merkez_id: 1, personel_id: 1 },
+    { merkez_id: 1, personel_id: 1, etkinlik_adi:"Merkez 1 patlıyo herkes", danisan_sayisi:4 },
+    { merkez_id: 2, personel_id: 1, etkinlik_adi:"Merkez 2 patlıyo herkes", danisan_sayisi:5 },
+    { merkez_id: 3, personel_id: 1, etkinlik_adi:"Merkez 3 patlıyo herkes", danisan_sayisi:2 },
     //tarih formatı yeniden ele alınabilir
   ]);
   await knex("MerkezPersonel").insert([
@@ -168,42 +170,42 @@ exports.seed = async function (knex) {
       merkez_personel_id: 1,
       personel_id: 1,
       merkez_id: 2,
-      danisan_sayisi: 5,
+    
       saha_adres: "zıttır sokkak no 5",
     },
     {
       merkez_personel_id: 2,
       personel_id: 2,
       merkez_id: 3,
-      danisan_sayisi: 4,
+   
       saha_adres: "zıttır sokkak no 5",
     },
     {
       merkez_personel_id: 3,
       personel_id: 3,
       merkez_id: 5,
-      danisan_sayisi: 6,
+    
       saha_adres: "zıttır sokkak no 5",
     },
     {
       merkez_personel_id: 4,
       personel_id: 7,
       merkez_id: 3,
-      danisan_sayisi: 2,
+     
       saha_adres: "zıttır sokkak no 5",
     },
     {
       merkez_personel_id: 5,
       personel_id: 6,
       merkez_id: 3,
-      danisan_sayisi: 2,
+     
       saha_adres: "zıttır sokkak no 5",
     },
     {
       merkez_personel_id: 6,
       personel_id: 4,
       merkez_id: 3,
-      danisan_sayisi: 2,
+ 
       saha_adres: "zıttır sokkak no 5",
     }, 
 

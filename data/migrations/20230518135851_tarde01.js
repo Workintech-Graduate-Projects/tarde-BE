@@ -56,8 +56,7 @@ exports.up = function (knex) {
         .inTable("Merkez")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
-      tablo.integer("danisan_sayisi").defaultTo(0);
-      // tablo.dateTime("tarih");
+
       tablo.string("saha_adres");
     })
     .createTable("Acil_Durum", (tablo) => {
@@ -99,6 +98,7 @@ exports.up = function (knex) {
     })
     .createTable("hizmet", (tablo) => {
       tablo.increments("hizmet_id");
+      tablo.string("etkinlik_adi").notNullable();
       tablo
         .integer("personel_id")
         .notNullable()
