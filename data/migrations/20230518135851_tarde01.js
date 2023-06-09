@@ -9,6 +9,8 @@ exports.up = function (knex) {
     .createTable("Sehir", (tablo) => {
       tablo.increments("sehir_id"); //1-1 arttırmasını belirttiğimiz ifade sadece pk kolonlarında belirtiyoruz.
       tablo.string("sehir_adi").notNullable(); //acaba string mi olmalıydı --evet string olmalıydı
+      tablo.string("sehir_tel_1");
+      tablo.string("sehir_tel_2");
       tablo.decimal("enlem");
       tablo.decimal("boylam");
     })
@@ -56,8 +58,7 @@ exports.up = function (knex) {
         .inTable("Merkez")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
-      tablo.integer("danisan_sayisi").defaultTo(0);
-      // tablo.dateTime("tarih");
+
       tablo.string("saha_adres");
     })
     .createTable("Acil_Durum", (tablo) => {
@@ -99,6 +100,7 @@ exports.up = function (knex) {
     })
     .createTable("hizmet", (tablo) => {
       tablo.increments("hizmet_id");
+      tablo.string("etkinlik_adi").notNullable();
       tablo
         .integer("personel_id")
         .notNullable()

@@ -25,6 +25,15 @@ router.put("/isbirligi/", async (req, res, next) => {
     next(error);
   }
 });
+router.put("/hizmet/", async (req, res, next) => {
+  try {
+    const update = await db("hizmet").where("hizmet_id",req.body.hizmet_id)
+      .update(req.body);
+    res.status(201).json({ update, message: "Hizmet Düzenlendi" });
+  } catch (error) {
+    next(error);
+  }
+});
 router.put("/aracsayisi/", async (req, res, next) => {
   try {
     const update = await db("AracSayisi")
@@ -103,7 +112,18 @@ router.delete("/merkez/:id", async (req, res, next) => {
     next(error);
   }
 });
-//Merkez Silme
+//Hizmet Silme
+router.delete("/hizmet/:id", async (req, res, next) => {
+  try {
+    const merkezDelete = await db("hizmet")
+      .where("hizmet_id", req.params.id)
+      .del();
+    res.status(204).json({ merkezDelete, message: "Hizmet Silindi" });
+  } catch (error) {
+    next(error);
+  }
+});
+//Araç Silme
 router.delete("/aracsayisi/:id", async (req, res, next) => {
   try {
     const merkezDelete = await db("AracSayisi")
@@ -132,6 +152,24 @@ router.post("/merkez/", async (req, res, next) => {
   try {
     const insert = await db("Merkez").insert(req.body);
     res.status(201).json({ insert, message: "Yeni Merkez Eklendi" });
+  } catch (error) {
+    next(error);
+  }
+});
+// Araç Sayısı Ekleme
+router.post("/aracsayisi/", async (req, res, next) => {
+  try {
+    const insert = await db("AracSayisi").insert(req.body);
+    res.status(201).json({ insert, message: "Yeni Araç Eklendi" });
+  } catch (error) {
+    next(error);
+  }
+});
+// Hizmet Ekleme
+router.post("/hizmet/", async (req, res, next) => {
+  try {
+    const insert = await db("hizmet").insert(req.body);
+    res.status(201).json({ insert, message: "Yeni Hizmet Eklendi" });
   } catch (error) {
     next(error);
   }
@@ -229,6 +267,15 @@ router.get("/merkezpersonel/:id", async (req, res, next) => {
     next(error);
   }
 });
+// Personeller
+router.get("/personel/", async (req, res, next) => {
+  try {
+    const sehirler = await db("Personel as P")
+    res.status(200).json(sehirler);
+  } catch (error) {
+    next(error);
+  }
+});
 // Tüm Gönüllüler göre Personel tablosu
 router.get("/personel/null", async (req, res, next) => {
   try {
@@ -264,6 +311,25 @@ router.get("/aracsayisi/:id/", async (req, res, next) => {
     "A.gezicikaravan_sayisi","m.merkez_adi","A.arac_sayisi_id",
     "m.merkez_id").where("m.merkez_id",req.params.id)
 
+    res.status(200).json(sehirler);
+  } catch (error) {
+    next(error);
+  }
+});
+router.get("/hizmet/:id", async (req, res, next) => {
+  try {
+    const sehirler = await db("hizmet as h").leftJoin("Merkez as m", "m.merkez_id", "h.merkez_id")
+    .select("m.merkez_adi","etkinlik_adi","personel_id","danisan_sayisi","tarih","hizmet_id","m.merkez_id")
+
+    res.status(200).json(sehirler);
+  } catch (error) {
+    next(error);
+  }
+});
+router.get("/hizmet/", async (req, res, next) => {
+  try {
+    const sehirler = await db("hizmet as h")
+  
     res.status(200).json(sehirler);
   } catch (error) {
     next(error);
