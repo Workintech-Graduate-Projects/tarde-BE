@@ -21,43 +21,67 @@ exports.seed = async function (knex) {
     {
       sehir_id: 1,
       sehir_adi: "Hatay/iskenderun",
-      enlem: 38.3233075,
-      boylam: 37.7291557,
-      sehir_tel_1:"0212 464 42 11",
-      sehir_tel_2:"0212 964 13 11"
+      enlem: 36.22,
+      boylam: 36.1,
+      sehir_tel_1: "0212 464 42 11",
+      sehir_tel_2: "0212 964 13 11",
     },
     {
       sehir_id: 2,
       sehir_adi: "Adiyaman",
-      sehir_tel_1:"0212 164 42 11",
-      sehir_tel_2:"0212 164 13 11",
-      enlem: 38.3233075,
-      boylam: 37.7291557,
+      sehir_tel_1: "0212 164 42 11",
+      sehir_tel_2: "0212 164 13 11",
+      enlem: 38.28,
+      boylam: 37.55,
     },
-    { sehir_id: 3, sehir_adi: "Gaziantep" , sehir_tel_1:"0212 264 42 11",
-    sehir_tel_2:"0212 564 13 11" ,
-    enlem: 38.5233075,
-    boylam: 37.3291557,},
-    { sehir_id: 4, sehir_adi: "Sanliurfa"  , sehir_tel_1:"0242 264 42 11",
-    sehir_tel_2:"0262 564 13 11" ,
-    enlem: 38.3533075,
-    boylam: 37.7391557},
-    { sehir_id: 5, sehir_adi: "Kahramanmaras" , sehir_tel_1:"0512 264 42 11",
-    sehir_tel_2:"0312 564 13 11" ,
-    enlem: 38.3333075,
-    boylam: 37.9391557 },
-    { sehir_id: 6, sehir_adi: "Osmaniye"  , sehir_tel_1:"0212 264 44 21",
-    sehir_tel_2:"0212 564 43 11" ,
-    enlem: 38.3623075,
-    boylam: 37.1391557 },
-    { sehir_id: 7, sehir_adi: "Malatya"  , sehir_tel_1:"0222 264 42 11",
-    sehir_tel_2:"0272 564 13 11" ,
-    enlem: 38.4333075,
-    boylam: 37.2391557 },
-    { sehir_id: 8, sehir_adi: "Diyarbakir"  , sehir_tel_1:"0242 264 42 11",
-    sehir_tel_2:"0292 564 15 11" ,
-    enlem: 38.1333075,
-    boylam: 37.1391557},
+    {
+      sehir_id: 3,
+      sehir_adi: "Gaziantep",
+      sehir_tel_1: "0212 264 42 11",
+      sehir_tel_2: "0212 564 13 11",
+      enlem: 37.38,
+      boylam: 36.86,
+    },
+    {
+      sehir_id: 4,
+      sehir_adi: "Sanliurfa",
+      sehir_tel_1: "0242 264 42 11",
+      sehir_tel_2: "0262 564 13 11",
+      enlem: 38.8,
+      boylam: 36.9,
+    },
+    {
+      sehir_id: 5,
+      sehir_adi: "Kahramanmaras",
+      sehir_tel_1: "0512 264 42 11",
+      sehir_tel_2: "0312 564 13 11",
+      enlem: 36.93,
+      boylam: 37.38,
+    },
+    {
+      sehir_id: 6,
+      sehir_adi: "Osmaniye",
+      sehir_tel_1: "0212 264 44 21",
+      sehir_tel_2: "0212 564 43 11",
+      enlem: 36.25,
+      boylam: 36.86,
+    },
+    {
+      sehir_id: 7,
+      sehir_adi: "Malatya",
+      sehir_tel_1: "0222 264 42 11",
+      sehir_tel_2: "0272 564 13 11",
+      enlem: 38.31,
+      boylam: 38.14,
+    },
+    {
+      sehir_id: 8,
+      sehir_adi: "Diyarbakir",
+      sehir_tel_1: "0242 264 42 11",
+      sehir_tel_2: "0292 564 15 11",
+      enlem: 40.24,
+      boylam: 37.7,
+    },
   ]);
   await knex("Merkez").insert([
     {
@@ -65,7 +89,7 @@ exports.seed = async function (knex) {
       sehir_id: 1,
       merkez_adi: "IBB Afet Koordinasyon Merkezi",
       adres: "test test",
-      telefon_numarasi: "05313011111"
+      telefon_numarasi: "05313011111",
     },
 
     { merkez_id: 2, sehir_id: 1, merkez_adi: "Samandag Konteyner Kent" },
@@ -93,38 +117,27 @@ exports.seed = async function (knex) {
     {
       merkez_id: 11,
       sehir_id: 2,
-      merkez_adi:
-        "Adıyaman Merkez",
+      merkez_adi: "Adıyaman Merkez",
     },
     {
-    
       sehir_id: 4,
-      merkez_adi:
-        "Şanlıurfa Merkez",
+      merkez_adi: "Şanlıurfa Merkez",
     },
     {
-    
       sehir_id: 5,
-      merkez_adi:
-        "Kahramanmaraş Merkez",
+      merkez_adi: "Kahramanmaraş Merkez",
     },
     {
-    
       sehir_id: 6,
-      merkez_adi:
-        "Osmaniye Merkez",
+      merkez_adi: "Osmaniye Merkez",
     },
     {
-    
       sehir_id: 7,
-      merkez_adi:
-        "Malatya Merkez",
+      merkez_adi: "Malatya Merkez",
     },
     {
-    
       sehir_id: 8,
-      merkez_adi:
-        "Diyarbakır Merkez",
+      merkez_adi: "Diyarbakır Merkez",
     },
   ]);
   await knex("Personel").insert([
@@ -182,9 +195,24 @@ exports.seed = async function (knex) {
   ]);
 
   await knex("hizmet").insert([
-    { merkez_id: 1, personel_id: 1, etkinlik_adi:"Merkez 1 patlıyo herkes", danisan_sayisi:4 },
-    { merkez_id: 2, personel_id: 1, etkinlik_adi:"Merkez 2 patlıyo herkes", danisan_sayisi:5 },
-    { merkez_id: 3, personel_id: 1, etkinlik_adi:"Merkez 3 patlıyo herkes", danisan_sayisi:2 },
+    {
+      merkez_id: 1,
+      personel_id: 1,
+      etkinlik_adi: "Merkez 1 patlıyo herkes",
+      danisan_sayisi: 4,
+    },
+    {
+      merkez_id: 2,
+      personel_id: 1,
+      etkinlik_adi: "Merkez 2 patlıyo herkes",
+      danisan_sayisi: 5,
+    },
+    {
+      merkez_id: 3,
+      personel_id: 1,
+      etkinlik_adi: "Merkez 3 patlıyo herkes",
+      danisan_sayisi: 2,
+    },
     //tarih formatı yeniden ele alınabilir
   ]);
   await knex("MerkezPersonel").insert([
@@ -192,44 +220,44 @@ exports.seed = async function (knex) {
       merkez_personel_id: 1,
       personel_id: 1,
       merkez_id: 2,
-    
+
       saha_adres: "zıttır sokkak no 5",
     },
     {
       merkez_personel_id: 2,
       personel_id: 2,
       merkez_id: 3,
-   
+
       saha_adres: "zıttır sokkak no 5",
     },
     {
       merkez_personel_id: 3,
       personel_id: 3,
       merkez_id: 5,
-    
+
       saha_adres: "zıttır sokkak no 5",
     },
     {
       merkez_personel_id: 4,
       personel_id: 7,
       merkez_id: 3,
-     
+
       saha_adres: "zıttır sokkak no 5",
     },
     {
       merkez_personel_id: 5,
       personel_id: 6,
       merkez_id: 3,
-     
+
       saha_adres: "zıttır sokkak no 5",
     },
     {
       merkez_personel_id: 6,
       personel_id: 4,
       merkez_id: 3,
- 
+
       saha_adres: "zıttır sokkak no 5",
-    }, 
+    },
 
     //tarih formatı yeniden ele alınabilir
   ]);
@@ -273,27 +301,23 @@ exports.seed = async function (knex) {
   ]);
   await knex("AracSayisi").insert([
     {
-     
       merkez_id: 1,
       binekarac_sayisi: 4,
       gezicikaravan_sayisi: 1,
     },
     {
-     
       merkez_id: 2,
-      binekarac_sayisi:3,
+      binekarac_sayisi: 3,
       gezicikaravan_sayisi: 2,
     },
     {
-     
       merkez_id: 3,
-      binekarac_sayisi:5,
+      binekarac_sayisi: 5,
       gezicikaravan_sayisi: 1,
     },
     {
-     
       merkez_id: 4,
-      binekarac_sayisi:5,
+      binekarac_sayisi: 5,
       gezicikaravan_sayisi: 1,
     },
   ]);
