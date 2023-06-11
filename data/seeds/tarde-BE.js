@@ -16,6 +16,8 @@ exports.seed = async function (knex) {
   await knex("users").truncate();
   await knex("AracSayisi").truncate();
   await knex("roles").truncate();
+  await knex("gonullu").truncate();
+  await knex("danisan").truncate();
 
   await knex("Sehir").insert([
     {
@@ -335,6 +337,28 @@ exports.seed = async function (knex) {
     {
       role_id: 1,
       role_name: "admin",
+    },
+  ]);
+  await knex("gonullu").insert([
+    {
+      gonullu_adi: "ömrü",
+      gonullu_soyadi: "can",
+      gonullu_numara:"05439748655",
+      gonullu_sehir:"Gaziantep",
+      gonullu_baslagıc:"04.08.2023",
+      gonullu_bitis:"08.08.2023",
+      gonullu_motivasyon:"böyle hayatın ."
+    },
+  ]);
+  await knex("danisan").insert([
+    {
+      danisan_adi: "ömrü",
+      danisan_soyadi: "can",
+      danisan_numara:"05439748655",
+      danisan_sehir:"Gaziantep",
+      danisan_yakinlik:"Abisi",
+      danisan_basvuru_nedeni:"Hasta psikolojik nedenleri var alın bunu buradan",
+      danisan_not:""
     },
   ]);
 
