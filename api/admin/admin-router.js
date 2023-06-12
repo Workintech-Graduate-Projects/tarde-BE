@@ -336,4 +336,83 @@ router.get("/hizmet/", async (req, res, next) => {
   }
 });
 
+
+
+// GÖNÜLLÜ
+
+router.post("/gonullu/", async (req, res, next) => {
+  try {
+    const insert = await db("gonullu").insert(req.body);
+    res.status(201).json({ insert, message: "Yeni Gönüllü Eklendi" });
+  } catch (error) {
+    next(error);
+  }
+});
+router.get("/gonullu/", async (req, res, next) => {
+  try {
+    const sehirler = await db("gonullu")
+  
+    res.status(200).json(sehirler);
+  } catch (error) {
+    next(error);
+  }
+});
+router.delete("/gonullu/:id", async (req, res, next) => {
+  try {
+    const merkezDelete = await db("gonullu")
+      .where("gonullu_id", req.params.id)
+      .del();
+    res.status(204).json({ merkezDelete, message: "Gönüllü Silindi" });
+  } catch (error) {
+    next(error);
+  }
+});
+router.put("/gonullu/:id", async (req, res, next) => {
+  try {
+    const update = await db("gonullu").where("gonullu_id", req.params.id)
+      .update(req.body);
+    res.status(201).json({ update, message: "Gönüllü Düzenlendi" });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// DANISAN
+
+router.post("/danisan/", async (req, res, next) => {
+  try {
+    const insert = await db("danisan").insert(req.body);
+    res.status(201).json({ insert, message: "Yeni Gönüllü Eklendi" });
+  } catch (error) {
+    next(error);
+  }
+});
+router.get("/danisan/", async (req, res, next) => {
+  try {
+    const sehirler = await db("danisan")
+  
+    res.status(200).json(sehirler);
+  } catch (error) {
+    next(error);
+  }
+});
+router.delete("/danisan/:id", async (req, res, next) => {
+  try {
+    const merkezDelete = await db("danisan")
+      .where("danisan_id", req.params.id)
+      .del();
+    res.status(204).json({ merkezDelete, message: "Danısan Silindi" });
+  } catch (error) {
+    next(error);
+  }
+});
+router.put("/danisan/:id", async (req, res, next) => {
+  try {
+    const update = await db("danisan").where("danisan_id", req.params.id)
+      .update(req.body);
+    res.status(201).json({ update, message: "Danısan Düzenlendi" });
+  } catch (error) {
+    next(error);
+  }
+});
 module.exports = router;

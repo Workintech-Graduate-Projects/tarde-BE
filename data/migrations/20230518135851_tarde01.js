@@ -118,6 +118,27 @@ exports.up = function (knex) {
       tablo.integer("danisan_sayisi");
       tablo.dateTime("tarih");
     })
+    .createTable("gonullu", (tablo) => {
+      tablo.increments("gonullu_id");
+      tablo.string("gonullu_adi").notNullable();
+      tablo.string("gonullu_soyadi").notNullable();
+      tablo.string("gonullu_numara").notNullable();
+      tablo.string("gonullu_sehir").notNullable();
+      tablo.dateTime("gonullu_baslagıc");
+      tablo.dateTime("gonullu_bitis");
+      tablo.string("gonullu_motivasyon");
+      tablo.string("gonullu_not");
+    })
+    .createTable("danisan", (tablo) => {
+      tablo.increments("danisan_id");
+      tablo.string("danisan_adi").notNullable();
+      tablo.string("danisan_soyadi").notNullable();
+      tablo.string("danisan_numara").notNullable();
+      tablo.string("danisan_sehir").notNullable();
+      tablo.string("danisan_yakinlik").notNullable().defaultTo("Ben");
+      tablo.string("danisan_basvuru_nedeni");
+      tablo.string("danisan_not");
+    })
     .createTable("roles", (roles) => {
       roles.increments("role_id");
       roles.string("role_name", 32).notNullable().unique();
@@ -142,6 +163,8 @@ exports.down = function (knex) {
   return knex.schema
     .dropTableIfExists("users")
     .dropTableIfExists("roles")
+    .dropTableIfExists("danisan")
+    .dropTableIfExists("gonullu")
     .dropTableIfExists("hizmet")
     .dropTableIfExists("AracSayisi")
     .dropTableIfExists("MerkezPersonel")
