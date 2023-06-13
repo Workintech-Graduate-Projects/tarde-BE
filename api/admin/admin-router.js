@@ -311,6 +311,18 @@ router.get("/aracsayisi/:id/", async (req, res, next) => {
     "A.gezicikaravan_sayisi","m.merkez_adi","A.arac_sayisi_id",
     "m.merkez_id").where("m.merkez_id",req.params.id)
 
+    res.status(200).json(sehirler[0]);
+  } catch (error) {
+    next(error);
+  }
+});
+router.get("/aracsayisi/sehir/:id/", async (req, res, next) => {
+  try {
+    const sehirler = await db("AracSayisi as A").leftJoin("Merkez as m", "A.merkez_id", "m.merkez_id")
+    .leftJoin("Sehir as s", "m.sehir_id", "s.sehir_id").select("s.sehir_adi","A.binekarac_sayisi",
+    "A.gezicikaravan_sayisi","m.merkez_adi","A.arac_sayisi_id",
+    "m.merkez_id").where("s.sehir_id",req.params.id)
+
     res.status(200).json(sehirler);
   } catch (error) {
     next(error);
